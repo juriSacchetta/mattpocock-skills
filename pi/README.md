@@ -30,7 +30,7 @@ The implementer's handoff is not optional: it runs the ticket's validation comma
 
 Both reviewers pin `model: openrouter/deepseek/deepseek-v4.1-flash`, the cheap model the rest of the team runs on. The pin started as `claude-sonnet-5.5`, which an OpenRouter in-flight budget wall (402 `in_flight_budget_exhausted`) killed mid-review at an inherited `thinking: max`: ~$0.82 spent across both axes with no verdict. A pinned model runs even when the host scopes models more tightly (`scopeModels`), at the cost of a warning at spawn, and `subagents.json` has no per-agent model override, so these two lines are the only place the choice can live. Sharing the implementation's model family costs the reviewers their family independence — self-preference stays unmitigated by that route, while the two axes remain independent agents on fresh context, which is the load-bearing part. To buy capability back, edit these two `model:` lines (for example `openrouter/anthropic/claude-sonnet-5.5`, ~$0.35–0.50 per axis) and keep the balance above the in-flight reservation.
 
-A small prompt extension supplies [team-context](skills/team-context/SKILL.md) once to the main session and children. This bypasses the current subagent preloader limitation for package-owned skills. Nested delegation is allowed through role-specific allowlists. The researcher executes delegated research directly and can delegate only distinct code lookups, preventing research-to-research recursion.
+A small prompt extension supplies [team-context](skills/team-context/SKILL.md) once to the main session and children. This bypasses the current subagent preloader limitation for package-owned skills. Nested delegation is allowed through role-specific allowlists. Reviewers complete their review directly and expose no delegation tools. The researcher executes delegated research directly and can delegate only distinct code lookups, preventing research-to-research recursion.
 
 Read-only roles expose no shell, write or edit tool. Reviewers read frozen diff files instead of running Git; those snapshots live under the shared scratch base (`/tmp/pi`, or `PI_PERMISSION_TMPDIR`), which must stay writable for bash and readable for reviewers.
 
@@ -53,6 +53,8 @@ Model- or user-invoked:
 Pi commands use `/skill:team-plan`, `/skill:team-build`, `/skill:team-review`, `/skill:team-research` and `/skill:team-handoff`. There is no Skill tool to call. The review and spec skills explain arguments for saved `team-review` and `team-spec` workflows, which run through `SubagentWorkflow`.
 
 The spec flow uses a clean dedicated integration checkout and host-managed worktrees. Its implementers leave changes for host preservation; the integrator validates the host's branch receipts and merges each frontier before dependents start. Local preservation commits and merges require authorization; pushes, PRs and remote ticket changes are separate actions. A failed frontier stops dependent work and retains successful sibling branches.
+
+The shared contract requires complete command logs and original exit codes before excerpts, and makes the parent responsible for cleaning up manually created worktrees after terminal-state and preservation checks. These are agent instructions; reviewer delegation is disabled by the role configuration.
 
 A single-change flow preserves existing user edits, has one writer and at most one review/fix/review cycle. It does not commit by default.
 
