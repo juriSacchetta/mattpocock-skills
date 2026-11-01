@@ -10,7 +10,7 @@ Read ../team-context/SKILL.md. This adapts Matt Pocock's implement and implement
 
 For one bounded change, establish the spec/brief and validation command from the project. Use planner only for unresolved decisions and explorer only for missing code facts. Delegate implementation to one implementer in the assigned checkout, keeping any existing user changes intact. Do not permit another writer in that checkout concurrently.
 
-Inspect its terminal handoff and actual check results. Use team-review to freeze the complete intended diff and run the two independent review axes. If changes are requested, one fresh implementer may fix the findings, followed by a new snapshot and both reviewers again. Further unresolved findings are a blocked outcome to discuss, not an unbounded correction loop. The main session verifies the final validation command and reports evidence. Commit/push only if requested.
+Inspect its terminal handoff and actual check results: the implementer already froze the diff and ran both review axes as part of that handoff. Use team-review when the review must cover a diff that no implementer produced — for example the whole branch after integration. If changes are requested, one fresh implementer may fix the findings, followed by a new snapshot and both reviewers again. Further unresolved findings are a blocked outcome to discuss, not an unbounded correction loop. The main session verifies the final validation command and reports evidence. Commit/push only if requested.
 
 ## Spec mode
 

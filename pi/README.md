@@ -19,10 +19,14 @@ Package agents have lower priority than same-name global or project agents. Insp
 | planner | Requirements, decisions and ticket graph | No |
 | explorer | Code facts and relevant tests | No |
 | researcher | Cited primary-source facts | No |
-| implementer | One ticket and its tests | Assigned checkout |
+| implementer | One ticket, its tests and the review handoff | Assigned checkout |
 | standards-reviewer | Conventions, correctness and maintainability | No |
 | spec-reviewer | Requirements and scope | No |
 | integrator | Local branch integration and combined validation | Integration checkout only |
+
+Each role's file is its system prompt (`prompt_mode: replace`): the job plus the rules of the flow step it owns — the red-green loop for the implementer, the smell baseline and the standards sources for the standards reviewer, the merge discipline for the integrator. Long references stay in skills, read on demand; ordering that must not depend on the model lives in the workflow scripts. A standalone prompt does not inherit AGENTS.md, so the write roles read the repository's own instruction files themselves.
+
+The implementer's handoff is not optional: it runs the ticket's validation command, freezes the diff with the team-review snapshot script and spawns both reviewers itself. It cannot reach past its allowlist — a nested planner or integrator is refused with the allowed list.
 
 A small prompt extension supplies [team-context](skills/team-context/SKILL.md) once to the main session and children. This bypasses the current subagent preloader limitation for package-owned skills. Nested delegation is allowed through role-specific allowlists. The researcher executes delegated research directly and can delegate only distinct code lookups, preventing research-to-research recursion.
 
