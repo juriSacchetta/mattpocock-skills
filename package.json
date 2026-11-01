@@ -26,7 +26,8 @@
   ],
   "pi": {
     "extensions": [
-      "./pi/extensions/team-context.ts"
+      "./pi/extensions/team-context.ts",
+      "./pi/extensions/team-usage.ts"
     ],
     "skills": [
       "./pi/skills"

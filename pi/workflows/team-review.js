@@ -10,6 +10,9 @@ if (!args || typeof args.snapshot !== "string" || !args.snapshot.trim()) {
 if (args.spec != null && (typeof args.spec !== "string" || !args.spec.trim())) {
   throw new Error("spec must be a path or null");
 }
+if (args.knownFindings != null && (!Array.isArray(args.knownFindings) || args.knownFindings.some(key => typeof key !== "string" || !key.trim()))) {
+  throw new Error("knownFindings must be an array of path:line keys from earlier rounds");
+}
 const schema = {
   type: "object",
   properties: {
@@ -58,10 +61,20 @@ for (let index = 0; index < results.length; index++) {
 }
 const standards = results[0];
 const spec = args.spec ? results[1] : { status: "not-applicable", findings: [], limitation: "No spec supplied" };
+const location = finding => `${String(finding.path).replace(/^\.\//, "")}:${finding.line}`;
+const known = new Set(args.knownFindings ?? []);
+const findings = [...standards.findings, ...spec.findings].map(location);
+const fresh = findings.filter(key => !known.has(key));
 return {
   status: [standards, spec].some(result => result.status === "blocked") ? "blocked"
     : [standards, spec].some(result => result.status === "findings") ? "findings" : "pass",
   standards,
   spec,
   snapshot: args.snapshot,
+  findingKeys: findings,
+  repeatedFindingKeys: findings.filter(key => known.has(key)),
+  newFindingKeys: fresh,
+  converged: findings.length === 0 || (known.size > 0 && fresh.length === 0),
+  // The test harness runs this body without the runtime's `budget` global.
+  usage: { outputTokens: typeof budget === "undefined" ? null : budget.spent() },
 };

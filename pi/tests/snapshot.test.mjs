@@ -42,6 +42,29 @@ test("snapshot uses the permission-modes scratch base", t => {
   const result = JSON.parse(execFileSync("python3", [script, "--repo", directory, "--working"], { encoding: "utf8", env: { ...process.env, PI_PERMISSION_TMPDIR: scratch } }));
   assert(result.snapshot.startsWith(scratch + path.sep));
 });
+test("pinned paths are hashed and verified against a ref", t => {
+  const { directory, git } = fixture(t);
+  writeFileSync(path.join(directory, "acceptance.txt"), "expects 42\n"); git("add", "acceptance.txt"); git("commit", "-m", "Acceptance check");
+  writeFileSync(path.join(directory, "tracked.txt"), "implementation\n");
+  const pinned = snapshot(t, directory, "--working", "--pin", "acceptance.txt", "--pin", "absent.txt");
+  assert.match(pinned.pinned["acceptance.txt"], /^[a-f0-9]{64}$/); assert.equal(pinned.pinned["absent.txt"], "missing");
+  const receipt = path.join(path.dirname(pinned.snapshot), "receipt.json");
+  const verify = (...args) => {
+    try {
+      return JSON.parse(execFileSync("python3", [script, "--repo", directory, "--verify-pins", receipt, ...args], { encoding: "utf8" }));
+    } catch (error) {
+      if (error.status !== 1) throw error;
+      return JSON.parse(error.stdout);
+    }
+  };
+  const intact = verify("--ref", "HEAD");
+  assert.equal(intact.ok, false); assert.deepEqual(intact.unpinnable, ["absent.txt"]); assert.deepEqual(intact.changed, []);
+  writeFileSync(path.join(directory, "acceptance.txt"), "expects 43\n"); git("add", "acceptance.txt"); git("commit", "-m", "Weakened check");
+  assert.throws(() => execFileSync("python3", [script, "--repo", directory, "--verify-pins", receipt, "--ref", "HEAD"], { stdio: "pipe" }), error => error.status === 1 && JSON.parse(error.stdout).changed.includes("acceptance.txt"));
+  assert.equal(verify().changed.includes("acceptance.txt"), true);
+  assert.throws(() => execFileSync("python3", [script, "--repo", directory, "--working", "--pin", "../outside.txt"], { stdio: "pipe" }), /Cannot prepare review snapshot/);
+});
+
 test("empty and invalid comparisons fail", t => {
   const { directory } = fixture(t);
   for (const args of [["--working"], ["--base", "missing"], ["--base=--help"]])

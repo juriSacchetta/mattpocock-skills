@@ -9,10 +9,11 @@ Freeze the review input with the bundled script, using the actual package path r
 
 - Committed changes: python3 ../../scripts/review_snapshot.py --repo <repository> --base <reference>
 - Staged and unstaged tracked changes: python3 ../../scripts/review_snapshot.py --repo <repository> --working
+- Pinning the checks a ticket will be judged by: add `--pin <path>` per check, and verify them later with `--verify-pins <receipt> --ref <branch>` (exit 1, naming the changed, missing or never-pinnable paths). A check pinned before implementation and changed afterwards is a failed gate, not a detail.
 
 The output is a JSON receipt naming the immutable diff file, repository, commit and omitted untracked paths. Read it. Untracked files are listed but never silently included; report missing coverage or create a separate user-authorized snapshot of selected files. Empty or unresolved comparisons stop before any reviewer starts.
 
-Locate a spec and the repository's coding standards. If the spec is absent, the Spec axis must report not-applicable. Call SubagentWorkflow with name team-review and args containing snapshot (diff file path), spec (path or null), standards (paths or a concise description) and repo. The two reviewers receive fresh contexts and the same frozen diff. They return independent findings; keep the axes separate.
+Locate a spec and the repository's coding standards. If the spec is absent, the Spec axis must report not-applicable. Call SubagentWorkflow with name team-review and args containing snapshot (diff file path), spec (path or null), standards (paths or a concise description) and repo. For a repeat round add knownFindings (the `path:line` keys the earlier round reported): the result carries `findingKeys`, `newFindingKeys` and `converged`, and a round that adds no new location is the end of the loop. The two reviewers receive fresh contexts and the same frozen diff. They return independent findings; keep the axes separate.
 
 For a single change, the implementer that produced it spawns both reviewers directly with the Agent tool on the same inputs. The workflow is for a whole branch, or any diff that no implementer handoff produced.
 

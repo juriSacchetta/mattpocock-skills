@@ -51,7 +51,7 @@ test("frontier runs concurrently and integrates before dependents start", async 
       return `Completed; host preserved branch pi-agent-${options.label}`;
     }
     assert.equal(active, 0); assert.equal(options.gate, "npm test");
-    return { status: "integrated", tickets: options.label === "integrate:A,B" ? ["A", "B"] : ["C"], head: hash, checks: "npm test passed" };
+    return { status: "integrated", tickets: options.label === "integrate:A,B" ? ["A", "B"] : ["C"], head: hash, checks: "npm test passed", pinMismatch: [] };
   });
   assert.equal(peak, 2); assert(events.indexOf("C") > events.indexOf("integrate:A,B"));
   assert.deepEqual(result.tickets, ["A", "B", "C"]); assert.equal(result.reviewRequired, true);
@@ -66,13 +66,59 @@ test("failed implementation retains sibling handoffs and blocks dependent work",
   }), /Frontier incomplete/);
   assert.equal(siblingFinished, true); assert.deepEqual(labels, ["preflight", "A", "B"]);
 });
+test("a repeat review round reports no new locations and converges", async () => {
+  const finding = { status: "findings", findings: [{ path: "./app.js", line: 8, reason: "Missing case", evidence: "Spec 2" }], limitation: "" };
+  const first = await run("team-review", { snapshot: "diff", spec: null }, async () => finding);
+  assert.deepEqual(first.findingKeys, ["app.js:8"]); assert.deepEqual(first.newFindingKeys, ["app.js:8"]);
+  assert.equal(first.converged, false); assert.equal(first.usage.outputTokens, null);
+  const second = await run("team-review", { snapshot: "diff", spec: null, knownFindings: ["app.js:8"] }, async () => finding);
+  assert.deepEqual(second.newFindingKeys, []); assert.deepEqual(second.repeatedFindingKeys, ["app.js:8"]); assert.equal(second.converged, true);
+  const clean = await run("team-review", { snapshot: "diff", spec: null, knownFindings: ["app.js:8"] }, async () => pass());
+  assert.equal(clean.converged, true);
+  await assert.rejects(run("team-review", { snapshot: "diff", knownFindings: [3] }, async () => pass()), /knownFindings/);
+});
+test("tickets declaring acceptance checks need a pin receipt before integration", async () => {
+  const args = graph(); args.tickets[0].acceptanceChecks = ["tests/acceptance.spec.js"]; args.tickets[0].invariants = ["for any input, decoding inverts encoding"];
+  const prompts = []; let integrations = 0;
+  await assert.rejects(run("team-spec", args, async (prompt, options) => {
+    prompts.push(prompt);
+    if (options.label === "preflight") return { status: "ready", head: hash, reason: "" };
+    if (options.agentType === "implementer") return options.label === "B" ? "Completed; branch pi-agent-B" : "Completed without a pin";
+    integrations++; return { status: "integrated", tickets: ["A", "B"], head: hash, checks: "ok", pinMismatch: [] };
+  }), /Pinned acceptance checks were not reported/);
+  assert.equal(integrations, 0);
+  assert(prompts.some(prompt => prompt.includes("--pin \"tests/acceptance.spec.js\"") && prompt.includes("decoding inverts encoding")));
+});
+test("a reported pin receipt reaches the integrator and a mismatch blocks the frontier", async () => {
+  const args = graph(); args.tickets[1].acceptanceChecks = ["tests/acc.spec.js"];
+  const prompts = [];
+  const result = await run("team-spec", args, async (prompt, options) => {
+    prompts.push(prompt);
+    if (options.label === "preflight") return { status: "ready", head: hash, reason: "" };
+    if (options.agentType === "implementer") return options.label === "B" ? "Done\nPIN-RECEIPT: /tmp/pi/team-review-x/receipt.json" : "Done";
+    return { status: "integrated", tickets: options.label === "integrate:A,B" ? ["A", "B"] : ["C"], head: hash, checks: "ok", pinMismatch: [] };
+  });
+  assert(prompts.some(prompt => prompt.includes("--verify-pins") && prompt.includes("/tmp/pi/team-review-x/receipt.json")));
+  assert.equal(result.tickets.length, 3);
+  await assert.rejects(run("team-spec", graph(), async (_, options) => {
+    if (options.label === "preflight") return { status: "ready", head: hash, reason: "" };
+    if (options.agentType === "implementer") return "Done";
+    return { status: "integrated", tickets: ["A", "B"], head: hash, checks: "ok", pinMismatch: ["tests/acc.spec.js"] };
+  }), /Integration incomplete/);
+});
+test("malformed acceptance fields fail before any child starts", async () => {
+  for (const mutate of [args => { args.tickets[0].acceptanceChecks = "tests/a.spec.js"; }, args => { args.tickets[0].invariants = [42]; }]) {
+    const args = graph(); mutate(args); let calls = 0;
+    await assert.rejects(run("team-spec", args, async () => { calls++; }), /string array/); assert.equal(calls, 0);
+  }
+});
 test("incomplete integration and blocked preflight do not release work", async () => {
   const labels = [];
   await assert.rejects(run("team-spec", graph(), async (_, options) => {
     labels.push(options.label);
     if (options.label === "preflight") return { status: "ready", head: hash, reason: "" };
     if (options.agentType === "implementer") return "Host branch receipt";
-    return { status: "integrated", tickets: ["A"], head: hash, checks: "Only one merged" };
+    return { status: "integrated", tickets: ["A"], head: hash, checks: "Only one merged", pinMismatch: [] };
   }), /Integration incomplete/);
   assert(!labels.includes("C")); let calls = 0;
   await assert.rejects(run("team-spec", graph(), async () => { calls++; return { status: "blocked", head: hash, reason: "Dirty checkout" }; }), /preflight/);
