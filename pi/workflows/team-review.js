@@ -4,6 +4,10 @@ export const meta = {
   phases: [{ title: "Review" }],
 };
 
+// A tool call may hand args over as a JSON string rather than an object.
+if (typeof args === "string") {
+  try { args = JSON.parse(args); } catch { throw new Error("args arrived as a string that is not JSON"); }
+}
 if (!args || typeof args.snapshot !== "string" || !args.snapshot.trim()) {
   throw new Error("snapshot must name the frozen diff file");
 }

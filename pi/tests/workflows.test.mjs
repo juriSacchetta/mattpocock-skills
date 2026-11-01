@@ -21,6 +21,15 @@ test("review keeps two independent axes", async () => {
   assert.deepEqual(labels.sort(), ["spec", "standards"]); assert.equal(result.status, "findings");
   assert.equal(result.standards.status, "pass"); assert.equal(result.spec.findings[0].evidence, "Spec 2");
 });
+test("args delivered as a JSON string are parsed before validation", async () => {
+  const labels = [];
+  const result = await run("team-review", JSON.stringify({ snapshot: "/tmp/frozen.diff", spec: "/tmp/spec.md" }), async (_, options) => {
+    labels.push(options.label);
+    return pass();
+  });
+  assert.deepEqual(labels.sort(), ["spec", "standards"]); assert.equal(result.status, "pass");
+  await assert.rejects(run("team-review", "{ not json", async () => pass()), /not JSON/);
+});
 test("missing spec is explicit; failed reviews wait for siblings and cannot pass", async () => {
   let calls = 0;
   const result = await run("team-review", { snapshot: "frozen.diff" }, async () => { calls++; return pass(); });

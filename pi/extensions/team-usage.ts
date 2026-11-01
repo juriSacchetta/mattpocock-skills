@@ -71,9 +71,13 @@ export default function (pi: ExtensionAPI) {
     round.clear();
   });
 
+  let lastSummary = "";
   const flush = () => {
     if (!session.size) return;
-    record({ event: "session", summary: summarise(session) });
+    const summary = summarise(session);
+    if (summary === lastSummary) return;
+    lastSummary = summary;
+    record({ event: "session", summary });
   };
   pi.on("session_shutdown", flush);
   bus.on("subagents:disposed", flush);

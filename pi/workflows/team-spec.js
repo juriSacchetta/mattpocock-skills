@@ -4,6 +4,10 @@ export const meta = {
   phases: [{ title: "Preflight" }, { title: "Implement" }, { title: "Integrate" }],
 };
 
+// A tool call may hand args over as a JSON string rather than an object.
+if (typeof args === "string") {
+  try { args = JSON.parse(args); } catch { throw new Error("args arrived as a string that is not JSON"); }
+}
 if (!args || args.localIntegrationAuthorized !== true) throw new Error("Local preservation commits and integration merges must be authorized");
 for (const key of ["spec", "integrationBranch", "validationCommand"]) {
   if (typeof args[key] !== "string" || !args[key].trim()) throw new Error(`${key} is required`);
