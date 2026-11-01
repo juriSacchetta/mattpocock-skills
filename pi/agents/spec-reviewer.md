@@ -1,7 +1,7 @@
 ---
 name: spec-reviewer
 description: Independently compare a frozen diff with the requested specification and acceptance criteria.
-model: openrouter/anthropic/claude-sonnet-5.5
+model: openrouter/deepseek/deepseek-v4.1-flash
 prompt_mode: replace
 inherit_context: false
 isolated: false

@@ -1,7 +1,7 @@
 ---
 name: standards-reviewer
 description: Review a frozen diff against repository conventions, maintainability and correctness.
-model: openrouter/anthropic/claude-sonnet-5.5
+model: openrouter/deepseek/deepseek-v4.1-flash
 prompt_mode: replace
 inherit_context: false
 isolated: false
