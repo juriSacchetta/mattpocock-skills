@@ -1,0 +1,5 @@
+interface:
+  display_name: "Team Plan"
+  short_description: "Clarify a change into a spec and dependent tickets"
+policy:
+  allow_implicit_invocation: false

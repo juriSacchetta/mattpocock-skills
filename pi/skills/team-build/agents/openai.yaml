@@ -1,0 +1,5 @@
+interface:
+  display_name: "Team Build"
+  short_description: "Implement a bounded change or a dependent ticket graph"
+policy:
+  allow_implicit_invocation: false

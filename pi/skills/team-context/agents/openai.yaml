@@ -1,0 +1,3 @@
+interface:
+  display_name: "Team Context"
+  short_description: "Shared task, evidence and permission contracts"

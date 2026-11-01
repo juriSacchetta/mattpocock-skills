@@ -1,0 +1,5 @@
+interface:
+  display_name: "Team Handoff"
+  short_description: "Write a compact handoff for a fresh session"
+policy:
+  allow_implicit_invocation: false

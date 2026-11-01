@@ -10,6 +10,8 @@
 
 # Skills For Real Engineers
 
+> This fork adds a [Pi Agent Team distribution](./pi/README.md). The upstream collection below remains available unchanged.
+
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
 
 My agent skills that I use every day to do real engineering - not vibe coding.
