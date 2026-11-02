@@ -1,5 +1,6 @@
 ---
 name: implementer
+thinking: high
 description: Implement one bounded ticket test-first, then hand it to independent review.
 prompt_mode: replace
 inherit_context: false
