@@ -56,6 +56,10 @@ Research is the only exception to *one ticket per session*.
 
 ## Common questions
 
+**How does it load supporting skills in Codex?**
+
+Yes. It loads its supporting skills through the Skill tool in Claude Code, or by reading their installed `SKILL.md` files in Codex. The same workflow applies in both; Codex does not need a Skill tool.
+
 **How is this different from `/grill-with-docs`? Which should I start with?**
 Session count, not project size. `/grill-with-docs` is single-session planning; wayfinder is multi-session planning. If you can hold the whole thing in one conversation, grilling is cheaper and better, and wayfinder is slower and denser for that case. The community shorthand is that wayfinder only makes sense if the work does not fit into a single session. This is by far the most-asked wayfinder question. People keep asking it because the skill descriptions do not tell you where your own task sits on that line. You have to judge the session count yourself.
 

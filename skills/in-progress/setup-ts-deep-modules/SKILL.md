@@ -4,11 +4,13 @@ description: Wire dependency-cruiser into a TypeScript repo so each package is a
 disable-model-invocation: true
 ---
 
+To load a named skill, use the Skill tool in Claude Code. In Codex, read its `SKILL.md` at the location in the installed skill catalog and follow it; read supporting files only when needed.
+
 # Setup TS Deep Modules
 
 Make every package in this repo a **deep module**: a lot of behaviour behind a small interface. A package's public surface is its **entry points** (the files at the package root), and everything in its subfolders is hidden. This skill installs [dependency-cruiser](https://github.com/sverweij/dependency-cruiser) and the rules that make the entry points the only way in, then proves the rules bite.
 
-For the vocabulary (deep module, interface, seam, depth), call the Skill tool with "codebase-design" and use its language throughout.
+For the vocabulary (deep module, interface, seam, depth), load and follow `codebase-design` and use its language throughout.
 
 ## The shape this enforces
 

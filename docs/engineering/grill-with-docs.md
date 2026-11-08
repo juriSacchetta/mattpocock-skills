@@ -42,6 +42,10 @@ The glossary is the main output. This skill builds domain language: the project'
 
 ## Common questions
 
+**How does it load supporting skills in Codex?**
+
+Yes. It loads its supporting skills through the Skill tool in Claude Code, or by reading their installed `SKILL.md` files in Codex. The same workflow applies in both; Codex does not need a Skill tool.
+
 **Should I use this or `/wayfinder`?**
 Scope decides it. Use this for anything you can settle in one session; use [wayfinder](https://aihero.dev/skills-wayfinder) when the effort is too big to hold in one, and it charts the work as a map of decision [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) first. Wayfinder is slower and denser, and reaching for it on a well-scoped feature is the common mistake. It does not replace this skill, and it can start a grilling session for the parts of the map that suit one.
 

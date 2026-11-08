@@ -48,6 +48,10 @@ The "pre-agreed" part matters, and it is also the skill's weakest point. Nothing
 
 ## Common questions
 
+**How does it load supporting skills in Codex?**
+
+Yes. It loads its supporting skills through the Skill tool in Claude Code, or by reading their installed `SKILL.md` files in Codex. The same workflow applies in both; Codex does not need a Skill tool.
+
 **It finished, but my ticket is still open and the acceptance criteria are still unchecked.**
 
 Correct, and expected. `implement` has no completion step. It ends at the commit and never touches the work item. This is the same on GitHub Issues and on the local markdown tracker, so it is not a tracker integration problem. It also does not act on the findings `code-review` produced, and does not tick the `- [ ]` boxes on the originating issue. Close the ticket and reconcile the criteria yourself. This matters most on a dependency chain, because `to-tickets` defines the frontier as tickets whose blockers are all closed. If nothing gets closed, nothing ever becomes visibly unblocked.
@@ -77,7 +81,7 @@ The agent resolved `#2` against another numbered list in context, such as a todo
 ## It's working if
 
 - The session opens by reading the ticket or spec and restating what it will build, rather than asking you what to build.
-- You can see an actual `tdd` Skill tool call in the trace, not just tests appearing in the diff.
+- The trace shows `tdd` loaded through the Skill tool in Claude Code or its installed `SKILL.md` read in Codex, followed by a failing test before implementation.
 - Typechecks and single test files run repeatedly during the run, and the full suite runs once near the end.
 - The run reaches a commit on your current branch without you prompting it to carry on.
 - The diff is one ticket's worth of change: a vertical slice through every layer, not several tickets swept together.

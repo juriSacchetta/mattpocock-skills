@@ -68,6 +68,10 @@ Discovery shows only *external* PRs, because a collaborator's in-progress branch
 
 ## Common questions
 
+**How does it load supporting skills in Codex?**
+
+Yes. It loads its supporting skills through the Skill tool in Claude Code, or by reading their installed `SKILL.md` files in Codex. The same workflow applies in both; Codex does not need a Skill tool.
+
 **I ran `/to-spec` and `/to-tickets`, and now those tickets are sitting there untriaged. Do I run `/triage` over them?**
 No. They are already agent-ready. `to-tickets` applies the `ready-for-agent` label when it publishes them, so an AFK runner picks them up without another pass. The user who hit this had run the spec flow and seen `needs-triage` on the output, and their AFK runner ignored everything. `triage` is the on-ramp for work that arrives from outside. The spec flow is the lane for work you start yourself. The two meet at `ready-for-agent`, not before.
 

@@ -4,6 +4,8 @@ description: Move issues and external PRs through a state machine of triage role
 disable-model-invocation: true
 ---
 
+To load a named skill, use the Skill tool in Claude Code. In Codex, read its `SKILL.md` at the location in the installed skill catalog and follow it; read supporting files only when needed.
+
 # Triage
 
 Move issues on the project issue tracker through a small state machine of triage roles.
@@ -73,7 +75,7 @@ Show counts and a one-line summary per item. Let the maintainer pick.
 
 3. **Verify the claim.** Before any grilling, check that the claim holds up. For a bug, reproduce it from the reporter's steps. For a PR, confirm the diff does what it claims: check it out, run the relevant tests or commands. Report what happened: confirmed (with code path), failed, or insufficient detail (a strong `needs-info` signal). A confirmed verification makes a much stronger agent brief.
 
-4. **Grill (if needed).** If the request needs fleshing out, call the Skill tool twice, for "grilling" and "domain-modeling", and grill it into shape a round of questions at a time, sharpening domain terms and updating `GLOSSARY.md`/ADRs inline as decisions land.
+4. **Grill (if needed).** If the request needs fleshing out, load and follow `grilling` and `domain-modeling`, and grill it into shape a round of questions at a time, sharpening domain terms and updating `GLOSSARY.md`/ADRs inline as decisions land.
 
 5. **Apply the outcome:**
    - `ready-for-agent`: post an agent brief comment ([AGENT-BRIEF.md](AGENT-BRIEF.md)).

@@ -35,6 +35,10 @@ It deliberately does not carry anything already written down. The document refer
 
 ## Common questions
 
+**How does it load supporting skills in Codex?**
+
+The handoff names suggested skills and their installed locations. The next agent uses the Skill tool in Claude Code, or reads each installed `SKILL.md` in Codex. User-invoked skills still need you to invoke them.
+
 **Handoff or compact?**
 `/compact` unless something is travelling. Staying on the same task is a compact, not a handoff. When the harness and directory stay the same and you need to stay in the loop, the phase-boundary tree ends at `/compact` most days. `/handoff` does not summarise better. Its advantage is that the result is a file you can carry somewhere `/compact` can't reach.
 
