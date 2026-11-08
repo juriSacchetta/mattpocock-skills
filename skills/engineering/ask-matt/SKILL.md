@@ -8,6 +8,10 @@ disable-model-invocation: true
 
 You don't remember every skill, so ask.
 
+The `/skill-name` labels in this map use Claude Code syntax. In Codex, tell the human to use `$skill-name` or the skill picker, using the plugin-qualified name when shown there. Built-in context commands are separate: use the harness's fresh-chat action (`/clear` in Claude Code, `/new` in Codex CLI) or compaction action when the tree calls for it.
+
+A user-invoked skill may be absent from the model's automatic discovery list while still installed. Check the installed picker, skill locations, or the installed plugin's manifest before reporting it missing. Read a skill for orientation without executing its workflow; the human invokes user-only workflows.
+
 Before stating what a skill does or recommending a step be skipped, read that skill's SKILL.md: the summaries here are for orientation only.
 
 A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone, or a vocabulary layer that runs underneath.
@@ -24,7 +28,7 @@ The route most work travels. You have an idea and want it built.
 3. **Branch: is this a multi-session build?**
    - **Yes** → **`/to-spec`** (turn the thread into a spec), then **`/to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. Then work the tickets one of two ways:
      - **`/implement`** per ticket, **`/clear`ing context between each one**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed. Each ticket is self-contained, so the last one's context is disposable.
-     - **`/implement-spec`** for the whole spec in one run. It reads the tickets as a **task graph**, runs implementer subagents across the ready **frontier** in parallel, and lands everything on one **integration branch**. Reach for it when you'd rather orchestrate the build than drive each ticket yourself.
+     - **`/implement-spec`** for the whole spec in one run. It reads the tickets as a **task graph**, runs implementer subagents across the ready **frontier** in parallel, and lands everything on one **integration branch**. Reach for it when you'd rather orchestrate the build than drive each ticket yourself. The coordinator keeps a compact on-disk ledger; fresh workers own exploration, implementation, merges, and review. In Codex, invoke it as `$implement-spec`.
    - **No** → **`/implement`** right here, in the same context window.
 
    Either way, the code gets built by driving **`/tdd`** (one red-green slice at a time) and closes out with **`/code-review`**, a two-axis review (Standards + Spec) of the diff. `/implement` runs both per ticket; `/implement-spec`'s implementers each drive `/tdd`, and it runs one `/code-review` over the integration branch. Reach for **`/tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/code-review`** on its own whenever you want to review a branch or PR against a fixed point.
@@ -37,7 +41,7 @@ The route most work travels. You have an idea and want it built.
 
 Keep steps 1–3 in **one unbroken context window** (don't compact or clear until after `/to-tickets`) so the grilling, spec, and tickets all build on the same thinking. Each `/implement` then starts fresh, working from the ticket. Run `/retro` in the session it's looking back on, before you clear; after clearing, point it at that session's log instead.
 
-The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**: the window (~150k tokens on state-of-the-art models) within which the model still reasons sharply. If a session approaches it before `/to-tickets`, don't push on degraded; `/compact` at the nearest phase boundary and carry on (see Phase boundaries).
+The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**: the portion of the context window within which the model still reasons sharply. If a session approaches it before `/to-tickets`, don't push on degraded; `/compact` at the nearest phase boundary and carry on (see Phase boundaries).
 
 ## On-ramps
 

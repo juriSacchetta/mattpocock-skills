@@ -6,6 +6,8 @@ The **phase boundary** is the gap between two phases, and it is the only place t
 
 ## The five options
 
+Skill labels use Claude Code's `/skill-name` syntax; use `$skill-name` in Codex. For a fresh chat, use the harness's action: `/clear` in Claude Code or `/new` in Codex CLI. Use its compaction action where `/compact` appears below. Available controls vary by surface. A new chat clears history; a fork inherits it.
+
 | Option       | What it does                                                    |
 | ------------ | --------------------------------------------------------------- |
 | **Continue** | Stay in the session. No context switch at all.                    |
@@ -18,7 +20,7 @@ The **phase boundary** is the gap between two phases, and it is the only place t
 
 Work top to bottom at the boundary. The first **yes** wins.
 
-**1. Can you continue in this session?** Two things make the answer yes: the next phase needs this phase as a **primary source**, or you have enough [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) left (~150k tokens) for the next phase to fit. Grilling → implementation is the standard yes: the implementation wants the reasoning verbatim, not a summary of it. Continue costs nothing and loses nothing, so rule it out before anything else.
+**1. Can you continue in this session?** Two things make the answer yes: the next phase needs this phase as a **primary source**, or you have enough [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) left for the next phase to fit. Grilling → implementation is the standard yes: the implementation wants the reasoning verbatim, not a summary of it. Continue costs nothing and loses nothing, so rule it out before anything else.
 
 **2. Is the context irrelevant to what comes next?** Is everything in this session (the exploration, the decisions, the dead ends) disposable? If so, **`/clear`**. It is the cheapest move on the board: it takes no time and hands back the whole window. `/clear` also isn't terminal: the old session stays resumable.
 

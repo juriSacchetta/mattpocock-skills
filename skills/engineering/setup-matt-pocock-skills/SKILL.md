@@ -66,22 +66,21 @@ Offer **multi-context** (a root `GLOSSARY-MAP.md` pointing to per-context `GLOSS
 
 Show the user a draft of:
 
-- The `## Agent skills` block to add to whichever of `CLAUDE.md` / `AGENTS.md` is being edited (see step 4 for selection rules)
+- The `## Agent skills` block and any pointer needed to make it reachable from both `AGENTS.md` and `CLAUDE.md` (see step 4)
 - The contents of `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, and `docs/agents/triage-labels.md` (the last only when `triage` is installed)
 
 Let them edit before writing.
 
 ### 4. Write
 
-**Pick the file to edit:**
+**Keep one configuration block reachable from both harnesses:**
 
-- If `CLAUDE.md` exists, edit it.
-- Else if `AGENTS.md` exists, edit it.
-- If neither exists, ask the user which one to create; don't pick for them.
+- Follow existing instruction-file pointers first. If both files resolve to the same shared instructions, edit that source once.
+- Otherwise, put the block in `AGENTS.md` if it exists, else `CLAUDE.md` if it exists. If neither exists, create `AGENTS.md`.
+- Ensure both root entrypoints reach that block: Codex reads `AGENTS.md`, and Claude Code reads `CLAUDE.md`. Create a missing entrypoint as a one-line instruction to read the chosen source. If the other entrypoint already exists, add a pointer to the chosen source's `## Agent skills` section, replacing any stale generated configuration pointers there while preserving unrelated user instructions.
+- Resolve symlinks before editing; write a shared target only once and keep pointer chains free of cycles.
 
-Never create `AGENTS.md` when `CLAUDE.md` already exists (or vice versa); always edit the one that's already there.
-
-If an `## Agent skills` block already exists in the chosen file, update its contents in-place rather than appending a duplicate. Don't overwrite user edits to the surrounding sections.
+If an `## Agent skills` block already exists in the chosen source, update the generated configuration entries in place. Preserve user additions and surrounding sections.
 
 The block:
 

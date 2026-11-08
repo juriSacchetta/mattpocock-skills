@@ -1,5 +1,7 @@
 # Contributing
 
+This is the `juriSacchetta/mattpocock-skills` fork. Propose changes to this fork through its [pull requests](https://github.com/juriSacchetta/mattpocock-skills/pulls). The upstream project has its own contribution rules; the original guidance below refers to upstream.
+
 Every issue is judged against the bar in [`SCOPE.md`](./SCOPE.md). Read it first.
 
 ## Where each request goes

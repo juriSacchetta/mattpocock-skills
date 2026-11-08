@@ -4,11 +4,13 @@ description: Wire dependency-cruiser into a TypeScript repo so each package is a
 disable-model-invocation: true
 ---
 
+To load a named skill, use the Skill tool in Claude Code. In Codex, read its `SKILL.md` at the location in the installed skill catalog and follow it; read supporting files only when needed. Use the exact installed name when the catalog qualifies it with a plugin namespace.
+
 # Setup TS Deep Modules
 
 Make every package in this repo a **deep module**: a lot of behaviour behind a small interface. A package's public surface is its **entry points** (the files at the package root), and everything in its subfolders is hidden. This skill installs [dependency-cruiser](https://github.com/sverweij/dependency-cruiser) and the rules that make the entry points the only way in, then proves the rules bite.
 
-For the vocabulary (deep module, interface, seam, depth), call the Skill tool with "codebase-design" and use its language throughout.
+For the vocabulary (deep module, interface, seam, depth), load and follow `codebase-design` and use its language throughout.
 
 ## The shape this enforces
 
@@ -90,7 +92,7 @@ This is the completion criterion for the whole skill: a config that doesn't fail
 
 Write a `README.md` **in the packages folder** (`<packages-root>/README.md`, next to the packages it governs) covering: the `src/packages/<name>/` layout (entry points at the root, `lib/` for implementation, `tests/` for tests), "import only through a package's entry points (its root files)", and how to run `lint:boundaries`. **Discourage barrel files** explicitly: expose several small entry points instead of re-exporting a whole subtree through one index. Keep it to the copy-me snippet plus the four rules in one paragraph each.
 
-Then add a **context pointer** to it from the repo's agent-instructions file (`CLAUDE.md` if present, else `AGENTS.md`, creating `AGENTS.md` if neither exists). One line is enough, e.g. `Packages are deep modules: see [src/packages/README.md](./src/packages/README.md) before adding or importing one.` This is what makes an agent discover the boundary rule instead of tripping over it.
+Then add a **context pointer** to it from `AGENTS.md` (create it if missing) and from `CLAUDE.md` when present. Follow existing instruction-file pointers and symlinks so a shared source is edited only once, and preserve unrelated instructions. One line is enough, e.g. `Packages are deep modules: see [src/packages/README.md](./src/packages/README.md) before adding or importing one.` This is what makes an agent discover the boundary rule instead of tripping over it.
 
 **Done when:** `<packages-root>/README.md` exists and discourages barrels, and the repo's `CLAUDE.md`/`AGENTS.md` links to it.
 

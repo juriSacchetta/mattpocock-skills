@@ -1,5 +1,7 @@
 # Productivity
 
+Invoke skills with `/skill-name` in Claude Code or `$skill-name` in Codex.
+
 General workflow tools, not code-specific.
 
 ## User-invoked

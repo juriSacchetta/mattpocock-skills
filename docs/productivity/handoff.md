@@ -6,6 +6,10 @@ What it gives you is **portability**, not compression, so the skill is narrower 
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `juri-skills:handoff`. Use the installed name shown in your skill picker.
+
+In Codex, invoke this skill as `$handoff`; the `/handoff` examples below use Claude Code syntax.
+
 You invoke this by typing `/handoff`; the agent won't reach for it on its own. Pass a note about what the next session is for, and the skill writes the document for that purpose.
 
 There are four triggers, and only four:
@@ -17,13 +21,13 @@ There are four triggers, and only four:
 | Sending the work to a colleague | They need something they can read |
 | Forking a side task found mid-phase | You keep working; a second agent takes the fork |
 
-For anything else (same harness, same directory, you are done [grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) and moving to implementation), use `/compact`. [ask-matt](https://aihero.dev/skills-ask-matt) has the ordered tree over all five options at a phase boundary.
+For anything else (same harness, same directory, you are done [grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) and moving to implementation), use `/compact`. [ask-matt](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/ask-matt.md) has the ordered tree over all five options at a phase boundary.
 
 ## Branching is the use people skip
 
 The skill's description reads like session resumption: write a summary, end here, resume there. Read that way, it looks like a worse `/compact`, so people skip it. The fork case is the one worth knowing. You **stay in your session** and hand a copy of the accumulated context to a second agent working in parallel.
 
-That is what the detour through [prototype](https://aihero.dev/skills-prototype) uses. You are deep in a design conversation, you hit a question that only running code will settle, and you do not want to spend the thread you built on finding out. Hand off to a prototype session, get the answer, hand the answer back, and reference it from the original thread. The work crosses over twice, your original conversation stays live, and you re-explain nothing.
+That is what the detour through [prototype](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/prototype.md) uses. You are deep in a design conversation, you hit a question that only running code will settle, and you do not want to spend the thread you built on finding out. Hand off to a prototype session, get the answer, hand the answer back, and reference it from the original thread. The work crosses over twice, your original conversation stays live, and you re-explain nothing.
 
 Three of the five options at a phase boundary preserve different things: `/compact` preserves your intent, `/clear` preserves nothing, `/handoff` preserves the work's ability to move.
 
@@ -34,6 +38,10 @@ The document carries the live thread (what's in flight, why, and what's next) pl
 It deliberately does not carry anything already written down. The document references specs, plans, ADRs, issues, commits and diffs by path or URL, and never copies them. That keeps the file small, and it keeps the settled detail in one place instead of two copies that drift apart.
 
 ## Common questions
+
+**How does it load supporting skills in Codex?**
+
+The handoff names suggested skills and their installed locations. The next agent uses the Skill tool in Claude Code, or reads each installed `SKILL.md` in Codex. User-invoked skills still need you to invoke them.
 
 **Handoff or compact?**
 `/compact` unless something is travelling. Staying on the same task is a compact, not a handoff. When the harness and directory stay the same and you need to stay in the loop, the phase-boundary tree ends at `/compact` most days. `/handoff` does not summarise better. Its advantage is that the result is a file you can carry somewhere `/compact` can't reach.
@@ -54,7 +62,7 @@ Open the fresh session and point it at the path: read this file, then continue. 
 They are similar, not identical. `/branch` isn't a shipped skill here; `/handoff` is the canonical name. A fork inherits an exact copy of the context; this skill produces a *targeted* compression aimed at a stated next task, in a file. Where a fork will do (same machine, same harness, same directory), a fork is less work. The file is the better choice when the destination is somewhere the fork can't go.
 
 **When does something belong in `CLAUDE.md` instead?**
-Ask whether it's true next month. `CLAUDE.md` is standing context about the project, loaded into every session whether it's relevant or not. A handoff is about one piece of work in flight and is useless once that work lands. If you keep re-explaining a fact, it belongs in `CLAUDE.md`. A half-finished task belongs in a handoff.
+Ask whether it's true next month. Harness instructions (`CLAUDE.md` for Claude Code, `AGENTS.md` for Codex) are standing context about the project, loaded into every session whether it's relevant or not. A handoff is about one piece of work in flight and is useless once that work lands. If you keep re-explaining a fact, it belongs in those standing instructions. A half-finished task belongs in a handoff.
 
 **It captures the what, not the why.**
 This is a fair criticism, and people raise it often. Two things help. Pass the argument (tell it what the next session is for), so the skill keeps the reasoning that bears on *that* rather than flattening it. And watch for confident claims the session never verified, such as "X isn't built" or "Y is done". The next agent trusts the document and does not re-check it, so a belief written as a fact becomes a false premise for everything that follows. Read the document before you hand it over, and downgrade anything you only assumed.
@@ -73,4 +81,4 @@ Both work; they suit different situations. As a skill, it ships and updates thro
 
 ## Where it fits
 
-`handoff` is a **reach-for-it-anytime standalone**. It works between sessions rather than inside a build chain. It is a narrow one, and you'll use it less often than the other four options at a phase boundary. Its closest neighbour is [prototype](https://aihero.dev/skills-prototype), because a prototype lives in its own directory and the round trip out and back is the move this skill is for. When you're at a boundary and unsure whether to continue, clear, hand off, delegate or compact, [ask-matt](https://aihero.dev/skills-ask-matt) has the tree that orders those five, and routes you across the rest of the set.
+`handoff` is a **reach-for-it-anytime standalone**. It works between sessions rather than inside a build chain. It is a narrow one, and you'll use it less often than the other four options at a phase boundary. Its closest neighbour is [prototype](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/prototype.md), because a prototype lives in its own directory and the round trip out and back is the move this skill is for. When you're at a boundary and unsure whether to continue, clear, hand off, delegate or compact, [ask-matt](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/ask-matt.md) has the tree that orders those five, and routes you across the rest of the set.

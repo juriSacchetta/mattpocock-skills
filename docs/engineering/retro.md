@@ -6,9 +6,13 @@ It changes the environment, not the code. Take the bug the agent shipped, the fi
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `juri-skills:retro`. Use the installed name shown in your skill picker.
+
+In Codex, invoke this skill as `$retro`; the `/retro` examples below use Claude Code syntax.
+
 You invoke this by typing `/retro`, and the agent won't reach for it on its own.
 
-Reach for it at the end of a session that was harder than it should have been. For example, the agent searched too long for something, made a mistake a tool could have caught, or needed information it could not get. A smooth session has little to teach, and the findings come from the difficult ones. If you want a verdict on the code the session produced, use [code-review](https://aihero.dev/skills-code-review) instead.
+Reach for it at the end of a session that was harder than it should have been. For example, the agent searched too long for something, made a mistake a tool could have caught, or needed information it could not get. A smooth session has little to teach, and the findings come from the difficult ones. If you want a verdict on the code the session produced, use [code-review](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/code-review.md) instead.
 
 ## Where the findings land
 
@@ -29,6 +33,14 @@ The leading idea is that standards belong to the **reviewer**, not the implement
 Before `retro` writes any rule, it classifies the violation. A **mechanical** violation (a banned API, an import shape, a file-location rule) gets a deterministic check, because a check can fail and a sentence in a standards file can't. Only real judgement calls, which no linter can enforce, become prose. If the repo has no guardrail at all (no pre-commit hook, and no CI job that runs lint, typecheck, and tests), `retro` reports that as a finding of its own.
 
 ## Common questions
+
+**Which instruction file should an improvement go into?**
+
+Codex discovers `AGENTS.md`; Claude Code discovers `CLAUDE.md`. Follow existing pointers to shared guidance and keep both entrypoints able to reach it.
+
+**How does it load supporting skills in Codex?**
+
+Yes. It loads its supporting skills through the Skill tool in Claude Code, or by reading their installed `SKILL.md` files in Codex. The same workflow applies in both; Codex does not need a Skill tool.
 
 **Does it write the lint rule itself, or wait for a yes? Can I wire it to run after every session?**
 
@@ -52,11 +64,11 @@ Usually not, and `retro` pushes back on this more than anything else. A line in 
 
 **My setup mentions `CODING_STANDARDS.md` and I don't have one. Where does it come from?**
 
-No skill ships the file. The first time a session finds a judgement-call rule for the reviewer, `retro` proposes to create it. After you accept, [code-review](https://aihero.dev/skills-code-review) reads it. Any other standards doc you already keep, such as `CONTRIBUTING.md`, works the same way.
+No skill ships the file. The first time a session finds a judgement-call rule for the reviewer, `retro` proposes to create it. After you accept, [code-review](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/code-review.md) reads it. Any other standards doc you already keep, such as `CONTRIBUTING.md`, works the same way.
 
 **How is it different from `improve-codebase-architecture`?**
 
-The input is different. [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) needs only the code, and looks for structural improvements to it. `retro` needs a session history, and improves the environment the agent works in, not the code. You use both; neither replaces the other.
+The input is different. [improve-codebase-architecture](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/improve-codebase-architecture.md) needs only the code, and looks for structural improvements to it. `retro` needs a session history, and improves the environment the agent works in, not the code. You use both; neither replaces the other.
 
 ## It's working if
 
@@ -75,7 +87,7 @@ grill-with-docs → to-spec → to-tickets → implement → code-review → ret
 
 Run it after a build worth learning from, in the same session or pointed at that session's log. You can skip it after a smooth build.
 
-- [code-review](https://aihero.dev/skills-code-review) is the reviewer agent that `retro` most often tunes. New coding standards go where its Standards axis reads them.
-- [writing-for-agents](https://aihero.dev/skills-writing-for-agents) sets the writing style for every steering file and skill that `retro` proposes, and `retro` loads it before it starts.
+- [code-review](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/code-review.md) is the reviewer agent that `retro` most often tunes. New coding standards go where its Standards axis reads them.
+- [writing-for-agents](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/productivity/writing-for-agents.md) sets the writing style for every steering file and skill that `retro` proposes, and `retro` loads it before it starts.
 
-[ask-matt](https://aihero.dev/skills-ask-matt) routes across the whole set when you are unsure which skill the situation needs.
+[ask-matt](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/ask-matt.md) routes across the whole set when you are unsure which skill the situation needs.

@@ -8,6 +8,10 @@ Two filters stop the report from becoming generic cleanup advice. First, every c
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `juri-skills:improve-codebase-architecture`. Use the installed name shown in your skill picker.
+
+In Codex, invoke this skill as `$improve-codebase-architecture`; the `/improve-codebase-architecture` examples below use Claude Code syntax.
+
 You invoke this by typing `/improve-codebase-architecture`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) will not reach for it on its own.
 
 It is not a step in the main build loop. You run it periodically to queue up more work that improves the codebase. People use it in four situations:
@@ -21,9 +25,9 @@ It is not a step in the main build loop. You run it periodically to queue up mor
 
 Where it is confusable with siblings:
 
-- To design one module you have already chosen, use [codebase-design](https://aihero.dev/skills-codebase-design). This skill finds the module to work on, and `codebase-design` is where you design it.
-- For a whole effort too big to hold in one session, use [wayfinder](https://aihero.dev/skills-wayfinder).
-- For "this specific thing is broken," use [diagnosing-bugs](https://aihero.dev/skills-diagnosing-bugs). It sends you back here when the real finding is that there is no good seam to lock the bug down.
+- To design one module you have already chosen, use [codebase-design](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/codebase-design.md). This skill finds the module to work on, and `codebase-design` is where you design it.
+- For a whole effort too big to hold in one session, use [wayfinder](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/wayfinder.md).
+- For "this specific thing is broken," use [diagnosing-bugs](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/diagnosing-bugs.md). It sends you back here when the real finding is that there is no good seam to lock the bug down.
 
 ## Prerequisites
 
@@ -53,9 +57,17 @@ The report ends with a **Top recommendation**, the candidate it would do first. 
 
 ## What happens after you pick one
 
-When you pick a candidate, a [grilling](https://aihero.dev/skills-grilling) session starts on it. It covers the constraints, what goes behind the seam, which tests survive, and what the deepened interface should look like. The output of that session is a decision, not a diff. From there the normal flow applies: take the decision into [to-spec](https://aihero.dev/skills-to-spec), then [to-tickets](https://aihero.dev/skills-to-tickets), then [implement](https://aihero.dev/skills-implement).
+When you pick a candidate, a [grilling](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/productivity/grilling.md) session starts on it. It covers the constraints, what goes behind the seam, which tests survive, and what the deepened interface should look like. The output of that session is a decision, not a diff. From there the normal flow applies: take the decision into [to-spec](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/to-spec.md), then [to-tickets](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/to-tickets.md), then [implement](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/implement.md).
 
 ## Common questions
+
+**How are workers isolated in Codex?**
+
+The skill explicitly requests fresh worker contexts and passes task inputs and file locations rather than the parent conversation. Parallel work respects available capacity, and queued tasks count as complete only after their terminal results are checked. Claude Code uses its native subagent tool for the same separation.
+
+**How does it load supporting skills in Codex?**
+
+Yes. It loads its supporting skills through the Skill tool in Claude Code, or by reading their installed `SKILL.md` files in Codex. The same workflow applies in both; Codex does not need a Skill tool.
 
 **It grilled me for an hour about one idea instead of showing me options. Can I turn that off?**
 
@@ -75,7 +87,7 @@ Prompt it with the next thing you are building. If a big build is coming up, poi
 
 **Does it work on a large legacy codebase?**
 
-Partly. It works well on big existing codebases that lack consistent structure, and it is the recommended upkeep tool after any one-time structural setup. But users with out-of-control projects report it "helped a little but still doesn't seem to cut it." One developer with an eight-year-old legacy codebase reported that the model went in circles, though the same skill produces a clean graph on a tidy repo. There is no dedicated `/refactor` skill for that case yet. If the codebase has no shared vocabulary, run [grill-with-docs](https://aihero.dev/skills-grill-with-docs) first to create one. That usually makes this skill's output much better.
+Partly. It works well on big existing codebases that lack consistent structure, and it is the recommended upkeep tool after any one-time structural setup. But users with out-of-control projects report it "helped a little but still doesn't seem to cut it." One developer with an eight-year-old legacy codebase reported that the model went in circles, though the same skill produces a clean graph on a tidy repo. There is no dedicated `/refactor` skill for that case yet. If the codebase has no shared vocabulary, run [grill-with-docs](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/grill-with-docs.md) first to create one. That usually makes this skill's output much better.
 
 **How is this different from `/codebase-design`?**
 
@@ -87,7 +99,7 @@ Rarely, so know that before you start. The skill exists to output findings, so i
 
 **Does it work in Codex or another harness?**
 
-Partly. The exploration step names Claude Code's `Agent` tool with `subagent_type=Explore` directly. A [harness](https://www.aihero.dev/ai-coding-dictionary/harness) without that tool may skip the parallel exploration instead of using its own equivalent. The skill still runs, but the scan is less thorough. Someone has proposed a harness-neutral rewrite, but it is not merged.
+The exploration step now uses the available harness's subagent tool: Agent or Task in Claude Code, or `spawn_agent` in Codex, requesting a fresh context explicitly. Supporting skills load through the Skill tool in Claude Code or their installed `SKILL.md` in Codex. If worker support is unavailable, the skill reports that limitation.
 
 **How do I actually implement deep modules in TypeScript?**
 
@@ -106,8 +118,8 @@ The skill does not ship a good answer. People often ask for a `TYPESCRIPT.md` wi
 
 `improve-codebase-architecture` is **periodic maintenance**. You run it every few days, outside any chain, to queue up work, not to do it. Its neighbours:
 
-- [codebase-design](https://aihero.dev/skills-codebase-design) owns the depth-and-seam vocabulary that every candidate uses.
-- [grilling](https://aihero.dev/skills-grilling) walks the decision tree after you choose a candidate.
-- [domain-modeling](https://aihero.dev/skills-domain-modeling) keeps `GLOSSARY.md` and the ADRs current as you make the decision.
+- [codebase-design](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/codebase-design.md) owns the depth-and-seam vocabulary that every candidate uses.
+- [grilling](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/productivity/grilling.md) walks the decision tree after you choose a candidate.
+- [domain-modeling](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/domain-modeling.md) keeps `GLOSSARY.md` and the ADRs current as you make the decision.
 
-Its output is an idea, which goes back into the main build flow at [grill-with-docs](https://aihero.dev/skills-grill-with-docs) or [to-spec](https://aihero.dev/skills-to-spec). Its counterpart at the end of the main flow is [retro](https://aihero.dev/skills-retro). This skill improves the code the agent works in, and `retro` improves the environment around it (checks, standards, steering files) after a build. For which skill fits a situation, [ask-matt](https://aihero.dev/skills-ask-matt) is the router over the whole set.
+Its output is an idea, which goes back into the main build flow at [grill-with-docs](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/grill-with-docs.md) or [to-spec](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/to-spec.md). Its counterpart at the end of the main flow is [retro](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/retro.md). This skill improves the code the agent works in, and `retro` improves the environment around it (checks, standards, steering files) after a build. For which skill fits a situation, [ask-matt](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/ask-matt.md) is the router over the whole set.

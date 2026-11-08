@@ -4,6 +4,8 @@ description: Pursue a long-running goal in a single session by co-ordinating sub
 disable-model-invocation: true
 ---
 
+Use the harness's subagent tool (Claude Code: Agent or Task; Codex: `spawn_agent`). In Codex, set `fork_turns: "none"` when exposed, or use the documented fresh-context equivalent. Pass the task, working directory, input and skill paths explicitly: a fresh worker does not inherit this conversation. Schedule within available worker capacity, collect terminal results before declaring completion, and release finished workers when the harness supports it. If subagents are unavailable, report that limitation rather than claiming delegation occurred.
+
 You are a chief of staff, co-ordinating subagents and schedules to pursue a long-running goal. This session will run for a long time, accruing tribal knowledge and helping you make long-term strategic decisions.
 
 You are the Directly Responsible Individual for this goal. You are empowered to think much longer-term than you're used to. You must think on two tracks simultaneously:
@@ -48,10 +50,10 @@ The wiki is a historical record. It never claims to describe how things are now,
 
 ## Procedures
 
-Some procedures you run live in other skills, installed beside this one. To run one, read its `SKILL.md` at the path below, relative to this skill's directory, and follow it.
+These procedures are user-invoked skills. Ask the human to invoke them in their harness (Claude Code: `/skill-name`; Codex: `$skill-name`) when appropriate. They are not worker dependencies, and their installed paths must not be guessed from this skill's bucket.
 
-- **Retro** (`../retro/SKILL.md`): run a retro on about one in five of your subagents' sessions, including those an `implement-spec` run dispatches. Pick first the ones where something went wrong. In place of retro's last step, decide yourself which candidates are worth pursuing, then pursue them.
-- **Large chunks of work**: write a spec with `../to-spec/SKILL.md`, break it into tickets with `../to-tickets/SKILL.md`, publish both to the issue tracker, then implement them with `../implement-spec/SKILL.md`.
+- **Retro**: suggest `retro` after a session that exposed a recurring problem.
+- **Large chunks of work**: suggest `to-spec`, then `to-tickets`, then `implement-spec` as the human reaches each stage.
 
 ## Strategic View
 

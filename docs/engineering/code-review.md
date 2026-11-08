@@ -6,16 +6,20 @@ The skill never merges or re-ranks the two axes. The report ends with a worst is
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `juri-skills:code-review`. Use the installed name shown in your skill picker.
+
+In Codex, invoke this skill as `$code-review`; the `/code-review` examples below use Claude Code syntax.
+
 Type `/code-review`, or the agent reaches for it automatically when you ask to review a branch, a PR, work in progress, or anything "since X".
 
 | Your situation | Reach for |
 | --- | --- |
 | A diff exists and you want to know if it is built right *and* is the right thing | `code-review` |
 | You want bugs hunted in the diff: null paths, races, off-by-one | Claude Code's own built-in review, not this one (see the name clash below) |
-| Nothing is written yet and you want it written test-first | [tdd](https://aihero.dev/skills-tdd) |
-| A whole spec needs building, review included | [implement](https://aihero.dev/skills-implement), which calls this skill itself |
-| The whole codebase has drifted, not one diff | [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) |
-| Something is broken and you do not know why | [diagnosing-bugs](https://aihero.dev/skills-diagnosing-bugs) |
+| Nothing is written yet and you want it written test-first | [tdd](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/tdd.md) |
+| A whole spec needs building, review included | [implement](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/implement.md), which calls this skill itself |
+| The whole codebase has drifted, not one diff | [improve-codebase-architecture](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/improve-codebase-architecture.md) |
+| Something is broken and you do not know why | [diagnosing-bugs](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/diagnosing-bugs.md) |
 
 You must supply the fixed point. If you do not, the skill asks for one rather than guessing. Before it spawns anything, it checks that the ref resolves and that the diff is not empty, so a mistyped branch name fails in front of you instead of inside two sub-agents.
 
@@ -30,7 +34,7 @@ The Spec axis needs a spec to exist and be findable. It looks in this order:
 3. A spec file under `docs/`, `specs/`, or `.scratch/` matching the branch or feature name.
 4. Asking you.
 
-Step 1 depends on the tracker doc, which [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) writes. Without it the axis still works if you hand it a path. With no spec at all, the skill skips the Spec sub-agent and the report says "no spec available" rather than inventing requirements.
+Step 1 depends on the tracker doc, which [setup-matt-pocock-skills](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/setup-matt-pocock-skills.md) writes. Without it the axis still works if you hand it a path. With no spec at all, the skill skips the Spec sub-agent and the report says "no spec available" rather than inventing requirements.
 
 ## The two axes
 
@@ -47,11 +51,15 @@ The **smell baseline** sits under the repo's standards. It is twelve code smells
 
 ## Common questions
 
+**Do Codex review workers inherit the whole conversation?**
+
+The skill explicitly requests fresh workers without conversation inheritance in Codex. Each receives the fixed point, standards, spec, and review brief. Claude Code uses its native subagent tool for the same separation. The two axes run within available worker capacity, and both terminal results are checked before the review is reported as complete.
+
 **It collides with Claude Code's own `/code-review`. What do I do?**
 
 This is the most reported problem with the skill, and it is not fixed. Claude Code ships its own `/code-review`, which does something different: it hunts bugs in the diff, where this one checks spec compliance and repo standards. When you install this library, one of them wins, and which one depends on how you installed:
 
-- **Plugin marketplace.** Every skill gets a `mattpocock-skills:` prefix, and the built-in becomes hard to reach at the unqualified name.
+- **Plugin marketplace.** Every skill gets a `juri-skills:` prefix, and the built-in becomes hard to reach at the unqualified name.
 - **Plain skills install.** The local file wins, and this skill shadows the built-in.
 
 One answer is to remove Claude Code's built-in skills entirely. That saves a lot of [context](https://www.aihero.dev/ai-coding-dictionary/context), and the collision stops mattering. The shadowing itself is arguably a Claude Code [harness](https://www.aihero.dev/ai-coding-dictionary/harness) bug (a skill author should be free to name a skill anything), so the other answer is to rename the local copy. `npx skills update` undoes an edit to the frontmatter or a renamed directory. The durable workaround users report is to fork the skill to a new name and drop `code-review` from the managed set. Keep a note of the commit you forked from so you can re-sync by hand.
@@ -62,7 +70,7 @@ This is a known open bug. Several people have reproduced it, in more than one ha
 
 **Should I run it in the same [session](https://www.aihero.dev/ai-coding-dictionary/session) that wrote the code?**
 
-Prefer a fresh one. As one reader put it: "Same context reviewing itself isn't review, it's confirmation bias with a slash command." An agent that reviews in the authoring session has every assumption that shaped the code in its context. An independent reviewer would not have that context. This is also why people ask for [implement](https://aihero.dev/skills-implement) without its built-in review step, because that step runs the review inside the session that just wrote the diff. The independent version is to invoke `/code-review` yourself from a clean session.
+Prefer a fresh one. As one reader put it: "Same context reviewing itself isn't review, it's confirmation bias with a slash command." An agent that reviews in the authoring session has every assumption that shaped the code in its context. An independent reviewer would not have that context. This is also why people ask for [implement](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/implement.md) without its built-in review step, because that step runs the review inside the session that just wrote the diff. The independent version is to invoke `/code-review` yourself from a clean session.
 
 **After every ticket, or once at the end?**
 
@@ -92,10 +100,10 @@ No. It diffs `<fixed-point>...HEAD`. The three-dot form measures from the merge-
 
 `code-review` is the review step near the tail of the build chain: `grill-with-docs → to-spec → to-tickets → implement → code-review → retro`. It also stands alone on any branch or PR you point it at.
 
-- [implement](https://aihero.dev/skills-implement) is the closest neighbour. It drives the build and calls this skill as its own closing review before committing. [implement-spec](https://aihero.dev/skills-implement-spec) does the same once, over the whole integration branch.
-- [retro](https://aihero.dev/skills-retro) comes after it and tunes it. When a session shows the review missing a class of mistake, `retro` proposes the check or the `CODING_STANDARDS.md` rule the Standards axis then reads.
-- [pr](https://aihero.dev/skills-pr) writes the pull request body once the reviewed work goes up.
-- [to-spec](https://aihero.dev/skills-to-spec) and [to-tickets](https://aihero.dev/skills-to-tickets) produce the document the Spec axis checks against, so a vague spec makes that axis vague.
-- [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) is the whole-codebase counterpart, because this skill only looks at one diff.
+- [implement](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/implement.md) is the closest neighbour. It drives the build and calls this skill as its own closing review before committing. [implement-spec](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/implement-spec.md) does the same once, over the whole integration branch.
+- [retro](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/retro.md) comes after it and tunes it. When a session shows the review missing a class of mistake, `retro` proposes the check or the `CODING_STANDARDS.md` rule the Standards axis then reads.
+- [pr](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/pr.md) writes the pull request body once the reviewed work goes up.
+- [to-spec](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/to-spec.md) and [to-tickets](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/to-tickets.md) produce the document the Spec axis checks against, so a vague spec makes that axis vague.
+- [improve-codebase-architecture](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/improve-codebase-architecture.md) is the whole-codebase counterpart, because this skill only looks at one diff.
 
-[ask-matt](https://aihero.dev/skills-ask-matt) routes across the whole set when you are unsure which skill the situation wants.
+[ask-matt](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/ask-matt.md) routes across the whole set when you are unsure which skill the situation wants.
