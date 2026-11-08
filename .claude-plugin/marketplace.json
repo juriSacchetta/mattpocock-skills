@@ -1,15 +1,15 @@
 {
-  "name": "mattpocock",
+  "name": "jurisacchetta",
   "owner": {
-    "name": "Matt Pocock",
-    "url": "https://www.aihero.dev"
+    "name": "juriSacchetta",
+    "url": "https://github.com/juriSacchetta"
   },
-  "description": "Matt Pocock's skills for real engineering, as an installable Claude Code plugin.",
+  "description": "Juri Sacchetta's maintained skills for Claude Code and Codex.",
   "plugins": [
     {
-      "name": "mattpocock-skills",
+      "name": "juri-skills",
       "source": "./",
-      "description": "Matt Pocock's agent skills for real engineering (grilling, spec/ticket flows, TDD, code review, domain modelling and more).",
+      "description": "Maintained fork of Matt Pocock's engineering skills for Claude Code and Codex.",
       "category": "engineering",
       "keywords": [
         "engineering",
