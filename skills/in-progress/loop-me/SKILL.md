@@ -5,7 +5,7 @@ disable-model-invocation: true
 argument-hint: "A workflow to design, or nothing to go find one"
 ---
 
-Run a stateful `/grilling` session whose only output is **workflow** specs. Use the grilling discipline (relentless, a round of questions at a time, a recommended answer attached to each) aimed at the vocabulary and goal below. Create, edit, and delete specs as the grilling resolves things.
+Load and follow `grilling` for a stateful session whose only output is **workflow** specs. In Claude Code, use the Skill tool with its installed name. In Codex, read its installed `SKILL.md` at the location in the skill catalog, resolving any plugin-qualified name there. Use the grilling discipline (relentless, a round of questions at a time, a recommended answer attached to each) aimed at the vocabulary and goal below. Create, edit, and delete specs as the grilling resolves things.
 
 ## The loop lens
 
