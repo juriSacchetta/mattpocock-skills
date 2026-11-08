@@ -6,6 +6,8 @@ It is **[stateless](https://www.aihero.dev/ai-coding-dictionary/stateless)**. It
 
 ## When to reach for it
 
+In Codex, invoke this skill as `$grill-me`; the `/grill-me` examples below use Claude Code syntax.
+
 You invoke this by typing `/grill-me`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own. Start it in a **fresh conversation**, not on top of a plan you already had an agent write.
 
 Reach for it as soon as you have an idea worth taking seriously (a feature, a product direction, a business call, a piece of writing), and long before you have worked out what it involves. Vagueness is not a reason to wait, because the session exists to remove it. If you can already specify the thing precisely, you don't need to grill it.

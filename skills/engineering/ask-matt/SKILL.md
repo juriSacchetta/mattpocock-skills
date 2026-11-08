@@ -8,6 +8,10 @@ disable-model-invocation: true
 
 You don't remember every skill, so ask.
 
+The `/skill-name` labels in this map use Claude Code syntax. In Codex, tell the human to use `$skill-name` or the skill picker. Built-in context commands are separate: use the harness's fresh-chat action (`/clear` in Claude Code, `/new` in Codex CLI) or compaction action when the tree calls for it.
+
+A user-invoked skill may be absent from the model's automatic discovery list while still installed. Check the installed picker, skill locations, or the installed plugin's manifest before reporting it missing. Read a skill for orientation without executing its workflow; the human invokes user-only workflows.
+
 Before stating what a skill does or recommending a step be skipped, read that skill's SKILL.md: the summaries here are for orientation only.
 
 A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone, or a vocabulary layer that runs underneath.
@@ -37,7 +41,7 @@ The route most work travels. You have an idea and want it built.
 
 Keep steps 1–3 in **one unbroken context window** (don't compact or clear until after `/to-tickets`) so the grilling, spec, and tickets all build on the same thinking. Each `/implement` then starts fresh, working from the ticket. Run `/retro` in the session it's looking back on, before you clear; after clearing, point it at that session's log instead.
 
-The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**: the window (~150k tokens on state-of-the-art models) within which the model still reasons sharply. If a session approaches it before `/to-tickets`, don't push on degraded; `/compact` at the nearest phase boundary and carry on (see Phase boundaries).
+The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**: the portion of the context window within which the model still reasons sharply. If a session approaches it before `/to-tickets`, don't push on degraded; `/compact` at the nearest phase boundary and carry on (see Phase boundaries).
 
 ## On-ramps
 

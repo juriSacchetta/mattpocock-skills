@@ -6,6 +6,8 @@ The summary is a visual, not a paragraph. A default PR body describes the diff i
 
 ## When to reach for it
 
+In Codex, invoke this skill as `$pr`; the `/pr` examples below use Claude Code syntax.
+
 Type `/pr`, or the agent reaches for it automatically whenever it is writing a PR body.
 
 | Your situation | Reach for |

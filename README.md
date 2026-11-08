@@ -22,6 +22,8 @@ If you want to keep up with changes to these skills, and any new ones I create, 
 
 [Sign Up To The Newsletter](https://www.aihero.dev/s/skills-newsletter)
 
+Examples use Claude Code's `/skill-name` syntax. In Codex, use `$skill-name` or the skill picker. Skill workflows use the active harness's loading and delegation tools; features such as background workers require support from that harness.
+
 ## Installation (30-second setup)
 
 A plugin updates itself. [skills.sh](https://skills.sh/mattpocock/skills) copies editable files into your project, and you update them by hand. Pick one per agent, because installing both gives you every skill twice.

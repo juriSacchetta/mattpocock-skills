@@ -6,6 +6,8 @@ It is a reference, not a process. It runs no loop, produces no artifact, and nev
 
 ## When to reach for it
 
+In Codex, invoke this skill as `$codebase-design`; the `/codebase-design` examples below use Claude Code syntax.
+
 Type `/codebase-design`, or the agent reaches for it automatically when a design task fits.
 
 Reach for it when you already know which code you're redesigning and you need to think about its shape: where the seam goes, how small the interface can get, whether an extraction removes complexity from its callers. Also use it to settle an argument about what a design word means.
@@ -73,7 +75,7 @@ It does now, but for a long time it did not. v1.0 removed the inline deep-module
 
 **Does the design-it-twice pattern work outside Claude Code?**
 
-Not cleanly. `DESIGN-IT-TWICE.md` says "spawn 3+ sub-agents in parallel using the Agent tool", and "Agent" is the name of a Claude Code [tool](https://www.aihero.dev/ai-coding-dictionary/tool). The repo ships metadata for other [harnesses](https://www.aihero.dev/ai-coding-dictionary/harness), including Codex, and those may have no tool with that name. So the parallel-design phase is less portable than the skill's metadata suggests. [Issue #564](https://github.com/mattpocock/skills/issues/564) tracks this, and it is open.
+The pattern now names both Claude Code's Agent or Task tool and Codex's `spawn_agent`, with an explicit fresh-context request. It produces at least three designs within available worker capacity, dispatching later designs as slots free up. A harness without subagents is reported as a limitation rather than treated as if the parallel exploration happened.
 
 **Can I add my own concepts to the glossary, such as connascence, module secrets, [progressive disclosure](https://www.aihero.dev/ai-coding-dictionary/progressive-disclosure)?**
 

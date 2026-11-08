@@ -8,6 +8,8 @@ Two filters stop the report from becoming generic cleanup advice. First, every c
 
 ## When to reach for it
 
+In Codex, invoke this skill as `$improve-codebase-architecture`; the `/improve-codebase-architecture` examples below use Claude Code syntax.
+
 You invoke this by typing `/improve-codebase-architecture`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) will not reach for it on its own.
 
 It is not a step in the main build loop. You run it periodically to queue up more work that improves the codebase. People use it in four situations:
@@ -95,7 +97,7 @@ Rarely, so know that before you start. The skill exists to output findings, so i
 
 **Does it work in Codex or another harness?**
 
-Partly. The exploration step names Claude Code's `Agent` tool with `subagent_type=Explore` directly. A [harness](https://www.aihero.dev/ai-coding-dictionary/harness) without that tool may skip the parallel exploration instead of using its own equivalent. The skill still runs, but the scan is less thorough. Someone has proposed a harness-neutral rewrite, but it is not merged.
+The exploration step now uses the available harness's subagent tool: Agent or Task in Claude Code, or `spawn_agent` in Codex, requesting a fresh context explicitly. Supporting skills load through the Skill tool in Claude Code or their installed `SKILL.md` in Codex. If worker support is unavailable, the skill reports that limitation.
 
 **How do I actually implement deep modules in TypeScript?**
 

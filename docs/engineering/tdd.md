@@ -6,6 +6,8 @@ It writes no test at a seam you have not agreed to first. Before any test exists
 
 ## When to reach for it
 
+In Codex, invoke this skill as `$tdd`; the `/tdd` examples below use Claude Code syntax.
+
 Type `/tdd`, or the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) reaches for it automatically when a task fits: building a feature or fixing a bug test-first, or when you say "red-green-refactor".
 
 Reach for it when there is a concrete behaviour to build, with an input and an observable output, and you want tests that survive a refactor.
@@ -64,7 +66,7 @@ It happens. One user pushed the [model](https://www.aihero.dev/ai-coding-diction
 
 **Should it write browser or end-to-end tests first?**
 
-Usually not, and the skill will not stop it. A user reported the agent writing a Playwright test first, then spending a long loop re-running it and concluding the *test* was broken for a feature that did not exist yet. Browser tests are slow enough that the red-green feedback loop stops paying for itself. State in your repo's `CLAUDE.md` that browser tests come after the behaviour works.
+Usually not, and the skill will not stop it. A user reported the agent writing a Playwright test first, then spending a long loop re-running it and concluding the *test* was broken for a feature that did not exist yet. Browser tests are slow enough that the red-green feedback loop stops paying for itself. State in your repo's harness instructions (`CLAUDE.md` for Claude Code, `AGENTS.md` for Codex) that browser tests come after the behaviour works.
 
 **Does `/tdd` replace `/implement`, or the course's `/do-work`?**
 
