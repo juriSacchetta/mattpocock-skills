@@ -5,7 +5,7 @@ Beta. These skills are public on purpose: try them and tell me what breaks. They
 The plugin won't give you these. Install one directly:
 
 ```bash
-npx skills@latest add mattpocock/skills --skill=<name>
+npx skills@latest add juriSacchetta/mattpocock-skills --skill=<name>
 ```
 
 - **[chief-of-staff](./chief-of-staff/SKILL.md)**: Pursue a long-running goal through isolated workers and a persistent wiki. User-invoked.

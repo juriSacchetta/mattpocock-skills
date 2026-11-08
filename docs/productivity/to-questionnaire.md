@@ -6,7 +6,7 @@ It grills you about the **send**, never the subject. An interview about the topi
 
 ## When to reach for it
 
-Plugin installs may qualify skill names, for example `mattpocock-skills:to-questionnaire`. Use the installed name shown in your skill picker.
+Plugin installs may qualify skill names, for example `juri-skills:to-questionnaire`. Use the installed name shown in your skill picker.
 
 In Codex, invoke this skill as `$to-questionnaire`; the `/to-questionnaire` examples below use Claude Code syntax.
 
@@ -16,10 +16,10 @@ Reach for it when a decision is blocked on knowledge that lives in one other per
 
 | The answers are in… | Reach for |
 | --- | --- |
-| Your own head, unsharpened | [grill-me](https://aihero.dev/skills-grill-me) |
-| The codebase | [grill-with-docs](https://aihero.dev/skills-grill-with-docs) |
+| Your own head, unsharpened | [grill-me](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/productivity/grill-me.md) |
+| The codebase | [grill-with-docs](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/grill-with-docs.md) |
 | Someone else's head | `to-questionnaire` |
-| Nobody's head yet, the question needs something to react to | [prototype](https://aihero.dev/skills-prototype) |
+| Nobody's head yet, the question needs something to react to | [prototype](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/prototype.md) |
 
 The common case is a [grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) session that stalls because some of the questions it raised aren't yours to answer. Run `/to-questionnaire` in that same conversation to take those questions offline, then bring the answers back and carry on.
 
@@ -79,4 +79,4 @@ Yes, and plenty of people did before it existed: `OPEN_QUESTIONS.md` files, spre
 
 `to-questionnaire` is a reach-for-it-anytime standalone. You use it where your own knowledge ends and the next move is to ask another person, not to run another skill. That is most often mid-flow, when planning has stalled on something that isn't yours to decide.
 
-Its neighbour is [grill-me](https://aihero.dev/skills-grill-me), and the two differ on where the answers live. Grilling gets the answers from you; a questionnaire gets them from someone else. Feed what comes back into another grilling round, or into [grill-with-docs](https://aihero.dev/skills-grill-with-docs) or [to-spec](https://aihero.dev/skills-to-spec) if the work is heading for a build. When you're unsure which skill fits the moment, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+Its neighbour is [grill-me](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/productivity/grill-me.md), and the two differ on where the answers live. Grilling gets the answers from you; a questionnaire gets them from someone else. Feed what comes back into another grilling round, or into [grill-with-docs](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/grill-with-docs.md) or [to-spec](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/to-spec.md) if the work is heading for a build. When you're unsure which skill fits the moment, [ask-matt](https://github.com/juriSacchetta/mattpocock-skills/blob/main/docs/engineering/ask-matt.md) routes you.
