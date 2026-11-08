@@ -30,6 +30,10 @@ Before `retro` writes any rule, it classifies the violation. A **mechanical** vi
 
 ## Common questions
 
+**Which instruction file should an improvement go into?**
+
+Codex discovers `AGENTS.md`; Claude Code discovers `CLAUDE.md`. Follow existing pointers to shared guidance and keep both entrypoints able to reach it.
+
 **How does it load supporting skills in Codex?**
 
 Yes. It loads its supporting skills through the Skill tool in Claude Code, or by reading their installed `SKILL.md` files in Codex. The same workflow applies in both; Codex does not need a Skill tool.
