@@ -31,6 +31,10 @@ Once you think in these two loads, most authoring decisions (split or don't, inl
 
 ## Common questions
 
+**Does Claude Code invocation metadata also configure Codex?**
+
+No. Human-only skills pair `disable-model-invocation: true` in `SKILL.md` with `policy.allow_implicit_invocation: false` in `agents/openai.yaml`. Both keep a required description. Dependencies use the Skill tool in Claude Code or the installed `SKILL.md` in Codex.
+
 **Where did `/writing-great-skills` go?**
 It is this skill, renamed in v1.1. Users pointed it at `AGENTS.md`, docs, specs, tickets and runtime prompts long before the rename. Structure, leading words and pruning apply to any text an agent reads. There is no alias. Reinstall under the new name.
 
@@ -47,7 +51,7 @@ Agents told to "streamline" optimise for length, because length is the thing the
 When it works, and you can no longer find duplication, sediment or no-ops. There is no automated eval. You check by running the document by hand and using the failure-mode vocabulary to diagnose problems. When a document misbehaves, the same vocabulary helps you fix it: name the failure mode first, then fix that.
 
 **Should this live in `CLAUDE.md` or somewhere else?**
-Ask which load you want to pay. `CLAUDE.md` loads into every [session](https://www.aihero.dev/ai-coding-dictionary/session) unconditionally. Material behind a pointer costs only the pointer's own line until it fires. Anything that applies in one session out of ten costs context load in the other nine.
+Ask which load you want to pay. The active harness's instruction file (`CLAUDE.md` for Claude Code, `AGENTS.md` for Codex) loads into every [session](https://www.aihero.dev/ai-coding-dictionary/session) unconditionally. Material behind a pointer costs only the pointer's own line until it fires. Anything that applies in one session out of ten costs context load in the other nine.
 
 **Do I need to rewrite my documents for each new model?**
 Mostly no, and over-fitting to one model causes its own problems. Updating for a new model is usually another no-op pass rather than a rewrite.
