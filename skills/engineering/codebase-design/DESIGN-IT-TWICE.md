@@ -18,7 +18,7 @@ Show this to the user, then immediately proceed to Step 2. The user reads and th
 
 ### 2. Spawn sub-agents
 
-Spawn 3+ sub-agents in parallel, each with a fresh context window. Each must produce a **radically different** interface for the deepened module.
+Produce at least three designs with fresh sub-agents, running in parallel up to available worker capacity and dispatching remaining designs as slots free up. Use the harness's subagent tool (Claude Code: Agent or Task; Codex: `spawn_agent`). In Codex, set `fork_turns: "none"` when exposed, or use the documented fresh-context equivalent. Pass the task, working directory, input and skill paths explicitly: a fresh worker does not inherit this conversation. Schedule within available worker capacity, collect terminal results before declaring completion, and release finished workers when the harness supports it. If subagents are unavailable, report that limitation rather than claiming delegation occurred. Each must produce a **radically different** interface for the deepened module.
 
 Prompt each sub-agent with a separate technical brief (file paths, coupling details, dependency category from [DEEPENING.md](DEEPENING.md), what sits behind the seam). The brief is independent of the user-facing problem-space explanation in Step 1. Give each agent a different design constraint:
 

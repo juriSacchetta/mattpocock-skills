@@ -3,6 +3,8 @@ name: grilling
 description: Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.
 ---
 
+Use the harness's subagent tool (Claude Code: Agent or Task; Codex: `spawn_agent`). In Codex, set `fork_turns: "none"` when exposed, or use the documented fresh-context equivalent. Pass the task, working directory, input and skill paths explicitly: a fresh worker does not inherit this conversation. Schedule within available worker capacity, collect terminal results before declaring completion, and release finished workers when the harness supports it. If subagents are unavailable, report that limitation rather than claiming delegation occurred.
+
 Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
 
 Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for the user's answers before the next round.

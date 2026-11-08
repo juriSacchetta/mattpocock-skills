@@ -42,6 +42,10 @@ This page covers the mechanism. The wrapper skills' pages answer the questions p
 
 ## Common questions
 
+**How are workers isolated in Codex?**
+
+The skill explicitly requests fresh worker contexts and passes task inputs and file locations rather than the parent conversation. Parallel work respects available capacity, and queued tasks count as complete only after their terminal results are checked. Claude Code uses its native subagent tool for the same separation.
+
 **Can I go back to one question at a time?**
 Yes, and a large part of the audience does. Add this to your global `CLAUDE.md`:
 

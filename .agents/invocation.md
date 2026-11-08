@@ -13,13 +13,18 @@ Bucket `README.md`s and the top-level `README.md` group entries into **User-invo
 
 ## Dependencies between them
 
-Dependencies are expressed as an explicit instruction to **call the Skill tool** with the named skill (`Call the Skill tool with "grilling"`), not deep `../other-skill/FILE.md` cross-references, and not a bare `/skill`-style mention left for the model to interpret. Naming the tool is what gets it fired: most harnesses expose skill invocation as a tool the model calls, and spelling that out gets a higher hit rate than dropping a `/name` into prose and hoping it's read as a command. Dropping the leading `/` also keeps this harness-neutral rather than less: a skill name on its own carries no assumption about which harness's trigger syntax it belongs to. Shared reference docs live inside the skill that owns them; other skills reach that material by calling the Skill tool with it, not by linking across folders.
+Dependencies explicitly tell the agent to **load and follow** each named skill. Resolve its location from the installed skill catalog rather than assuming a checkout layout or linking across skill folders.
 
-This is about **operative** instructions: a skill's own steps telling the agent to go run another skill right now. Router prose that just names skills for a human to pick from (`ask-matt`, bucket `README.md`s) isn't invoking anything, so it keeps `/skill`-style names as plain labels.
+- **Claude Code:** invoke the Skill tool once per named skill.
+- **Codex:** read the named skill's `SKILL.md` at its installed location and follow it. Read supporting references only when the workflow needs them.
 
-The Skill tool takes one skill per call. A step that needs two skills is two calls, not one call with two names: say so (`Call the Skill tool twice, for "grilling" and "domain-modeling"`), not "call it with X and Y," which reads as a single call taking both.
+A skill must carry the loading instruction it needs: this contributor guide is not automatically available when a skill is installed elsewhere. For example: "Load `tdd`: use the Skill tool in Claude Code; in Codex, read its installed `SKILL.md` and follow it."
 
-This whole convention only holds when the named skill is **model-invoked**. A user-invoked skill can never be reached this way, full stop: per the invariant above, no other skill can call it, including by naming it to the Skill tool. When a step's precondition is a user-invoked skill (e.g. `setup-matt-pocock-skills`), phrase it as an instruction for the human to act on: "tell the user to run `/setup-matt-pocock-skills`", never as a Skill tool call.
+Shared reference docs live inside the skill that owns them. Other skills load that skill rather than linking across folders. Router prose that names skills for a human to pick from (`ask-matt`, bucket `README.md`s) is not invoking anything and can keep `/skill` labels. For human instructions, Claude Code uses `/skill-name`; Codex uses `$skill-name` or its skill picker.
+
+Only **model-invoked** skills can be dependencies. When a step needs a user-invoked skill such as `setup-matt-pocock-skills`, tell the human to invoke it in their harness.
+
+Every subagent dispatch must request a fresh context through the available harness tool, not just describe it as fresh. In Codex, set `fork_turns: "none"` when exposed. Give workers explicit task and skill pointers, since they do not inherit the conversation. Filesystem isolation is separate: assign worktrees when concurrent workers edit code.
 
 ## Passive vs active domain work
 

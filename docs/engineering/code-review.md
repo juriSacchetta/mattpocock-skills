@@ -47,6 +47,10 @@ The **smell baseline** sits under the repo's standards. It is twelve code smells
 
 ## Common questions
 
+**Do Codex review workers inherit the whole conversation?**
+
+The skill explicitly requests fresh workers without conversation inheritance in Codex. Each receives the fixed point, standards, spec, and review brief. Claude Code uses its native subagent tool for the same separation. The two axes run within available worker capacity, and both terminal results are checked before the review is reported as complete.
+
 **It collides with Claude Code's own `/code-review`. What do I do?**
 
 This is the most reported problem with the skill, and it is not fixed. Claude Code ships its own `/code-review`, which does something different: it hunts bugs in the diff, where this one checks spec compliance and repo standards. When you install this library, one of them wins, and which one depends on how you installed:

@@ -47,6 +47,10 @@ Two supporting files go further, and the skill reads them on demand rather than 
 
 ## Common questions
 
+**How are workers isolated in Codex?**
+
+The skill explicitly requests fresh worker contexts and passes task inputs and file locations rather than the parent conversation. Parallel work respects available capacity, and queued tasks count as complete only after their terminal results are checked. Claude Code uses its native subagent tool for the same separation.
+
 **How do I actually build a deep module in TypeScript?**
 
 This is the most-asked question about the skill and the skill does not answer it. It defines what a deep module *is*; it says nothing about how to stop a stray import from reaching past the interface. [Issue #458](https://github.com/mattpocock/skills/issues/458) put it plainly: "let's say we're happy with the interface, it hides the details, etc. But how do we enforce it? I think without linting or clear guardrails, humans and LLMs alike will start making it messy over time." The answer in that thread gave three options: wrap it in a class or IIFE and accept that the class gets enormous; make it a package in a monorepo and accept the monorepo tooling; or use a linter like [dependency-cruiser](https://github.com/sverweij/dependency-cruiser) to forbid imports that bypass the interface. Of these mechanisms, Effect is the best and dependency-cruiser the second-best. There is a `setup-ts-deep-modules` skill in the repo's `in-progress/` bucket that lays down a `src/packages/<name>/index.ts` convention, but it is a beta-channel skill with no docs page, and it ships no lint rule.

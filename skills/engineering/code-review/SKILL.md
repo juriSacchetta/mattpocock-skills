@@ -8,7 +8,7 @@ Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
 - **Standards**: does the code conform to this repo's documented coding standards?
 - **Spec**: does the code faithfully implement the originating issue / spec?
 
-Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings. Start every sub-agent with a fresh context window.
+Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings. Start every sub-agent with a fresh context window. Use the harness's subagent tool (Claude Code: Agent or Task; Codex: `spawn_agent`). In Codex, set `fork_turns: "none"` when exposed, or use the documented fresh-context equivalent. Pass the task, working directory, input and skill paths explicitly: a fresh worker does not inherit this conversation. Schedule within available worker capacity, collect terminal results before declaring completion, and release finished workers when the harness supports it. If subagents are unavailable, report that limitation rather than claiming delegation occurred.
 
 The issue tracker should have been provided to you. If not, tell the user to run `/setup-matt-pocock-skills`.
 
@@ -57,7 +57,7 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 
 ### 4. Spawn both sub-agents in parallel
 
-Issue both sub-agent calls together, in the foreground, and aggregate the reports they return.
+Dispatch both axes together when worker capacity allows, otherwise run them as slots become available. Wait for every dispatched axis to reach a terminal result before aggregating its report; a queued task is not a completed review.
 
 **Standards sub-agent prompt** should include:
 

@@ -4,6 +4,8 @@ description: Scan a codebase for deepening opportunities, present them as a visu
 disable-model-invocation: true
 ---
 
+Use the harness's subagent tool (Claude Code: Agent or Task; Codex: `spawn_agent`). In Codex, set `fork_turns: "none"` when exposed, or use the documented fresh-context equivalent. Pass the task, working directory, input and skill paths explicitly: a fresh worker does not inherit this conversation. Schedule within available worker capacity, collect terminal results before declaring completion, and release finished workers when the harness supports it. If subagents are unavailable, report that limitation rather than claiming delegation occurred.
+
 To load a named skill, use the Skill tool in Claude Code. In Codex, read its `SKILL.md` at the location in the installed skill catalog and follow it; read supporting files only when needed.
 
 # Improve Codebase Architecture

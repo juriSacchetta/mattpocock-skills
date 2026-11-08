@@ -57,6 +57,10 @@ When you pick a candidate, a [grilling](https://aihero.dev/skills-grilling) sess
 
 ## Common questions
 
+**How are workers isolated in Codex?**
+
+The skill explicitly requests fresh worker contexts and passes task inputs and file locations rather than the parent conversation. Parallel work respects available capacity, and queued tasks count as complete only after their terminal results are checked. Claude Code uses its native subagent tool for the same separation.
+
 **How does it load supporting skills in Codex?**
 
 Yes. It loads its supporting skills through the Skill tool in Claude Code, or by reading their installed `SKILL.md` files in Codex. The same workflow applies in both; Codex does not need a Skill tool.

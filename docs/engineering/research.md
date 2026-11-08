@@ -30,6 +30,10 @@ The repo decides where the file goes, not the skill. It follows whatever convent
 
 ## Common questions
 
+**How are workers isolated in Codex?**
+
+The skill explicitly requests fresh worker contexts and passes task inputs and file locations rather than the parent conversation. Parallel work respects available capacity, and queued tasks count as complete only after their terminal results are checked. Claude Code uses its native subagent tool for the same separation.
+
 **It spawned a second research agent. Is that meant to happen?**
 
 No. This is an open bug, [issue #530](https://github.com/mattpocock/skills/issues/530). The skill tells its caller to spin up a background agent but does not restrict the agent type. So the caller spawns a `general-purpose` agent, which has the `Agent` tool and the same instructions, and follows them again. One reporter measured a single research task costing roughly 450k [tokens](https://www.aihero.dev/ai-coding-dictionary/token) across three overlapping runs, and the duplicate finished half an hour later where the user could not see it. It also happens outside Claude Code. Users confirmed the same nesting in Codex with GPT-5.6-sol. There is no shipped fix. Users have patched their own installed copy with a line telling an agent that is already a [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent) to do the work itself, That helps, but it is only an instruction, not a structural fix. After you invoke the skill, watch your background task list and stop the duplicate.
