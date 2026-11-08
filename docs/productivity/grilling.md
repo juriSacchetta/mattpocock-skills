@@ -6,6 +6,8 @@ It does not ask one question at a time, and it does not ask everything at once. 
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:grilling`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$grilling`; the `/grilling` examples below use Claude Code syntax.
 
 Type `/grilling`, or the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) reaches for it on its own when a task fits. It is the only [skill](https://www.aihero.dev/ai-coding-dictionary/skill) in the grilling family that is model-invoked, so you rarely type it. Usually a skill you *did* type runs it for you.

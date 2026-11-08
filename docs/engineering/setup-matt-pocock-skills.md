@@ -8,6 +8,8 @@ It is a prompt-driven skill, not a deterministic script. It reads your `git remo
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:setup-matt-pocock-skills`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$setup-matt-pocock-skills`; the `/setup-matt-pocock-skills` examples below use Claude Code syntax.
 
 You invoke this by typing `/setup-matt-pocock-skills`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own. Its metadata marks it non-invokable on purpose, so no other skill can fire it for you.

@@ -8,6 +8,8 @@ It also differs from labelling by hand because it recommends and then waits. It 
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:triage`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$triage`; the `/triage` examples below use Claude Code syntax.
 
 You invoke this by typing `/triage` and then describing what you want in plain language. The [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own. Examples: "Show me anything that needs my attention", "let's look at #42", "move #42 to ready-for-agent".

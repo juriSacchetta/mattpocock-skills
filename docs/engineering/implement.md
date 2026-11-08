@@ -6,6 +6,8 @@ It never reopens the plan. There is no interview, no clarifying round, no propos
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:implement`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$implement`; the `/implement` examples below use Claude Code syntax.
 
 You invoke this by typing `/implement` yourself, and the agent won't reach for it on its own. It ships with `disable-model-invocation: true`, so no other skill can call it either. Wherever [ask-matt](https://aihero.dev/skills-ask-matt) or [to-tickets](https://aihero.dev/skills-to-tickets) says "then `/implement` per ticket", that is an instruction to you, not something the agent will do unprompted.

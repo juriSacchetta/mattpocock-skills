@@ -6,6 +6,8 @@ It reads the tickets as a **task graph**, not a list. Blocking edges decide what
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:implement-spec`. Use the installed name shown in your skill picker.
+
 You invoke this by typing `/implement-spec` in Claude Code or `$implement-spec` in Codex, and the agent won't reach for it on its own.
 
 | Your situation | Reach for |

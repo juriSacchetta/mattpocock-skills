@@ -6,6 +6,8 @@ It will not let the agent form a theory until a **tight** feedback loop exists: 
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:diagnosing-bugs`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$diagnosing-bugs`; the `/diagnosing-bugs` examples below use Claude Code syntax.
 
 Type `/diagnosing-bugs`, or the agent reaches for it on its own when a task fits. It is model-invoked, and fires on "diagnose" or "debug this", or on a report that something is broken, throwing, failing, or slow.

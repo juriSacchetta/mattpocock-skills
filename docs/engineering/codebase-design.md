@@ -6,6 +6,8 @@ It is a reference, not a process. It runs no loop, produces no artifact, and nev
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:codebase-design`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$codebase-design`; the `/codebase-design` examples below use Claude Code syntax.
 
 Type `/codebase-design`, or the agent reaches for it automatically when a design task fits.

@@ -22,7 +22,7 @@ If you want to keep up with changes to these skills, and any new ones I create, 
 
 [Sign Up To The Newsletter](https://www.aihero.dev/s/skills-newsletter)
 
-Examples use Claude Code's `/skill-name` syntax. In Codex, use `$skill-name` or the skill picker. Skill workflows use the active harness's loading and delegation tools; features such as background workers require support from that harness.
+Examples use Claude Code's `/skill-name` syntax. In Codex, use `$skill-name` or the skill picker. Plugin installs may qualify names, such as `$mattpocock-skills:implement-spec`; use the installed name shown in the picker. Skill workflows use the active harness's loading and delegation tools; features such as background workers require support from that harness.
 
 ## Installation (30-second setup)
 

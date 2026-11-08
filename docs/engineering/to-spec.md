@@ -6,6 +6,8 @@ It does not interview you. When you reach for it, the deciding is already done. 
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:to-spec`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$to-spec`; the `/to-spec` examples below use Claude Code syntax.
 
 You invoke this by typing `/to-spec`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own.

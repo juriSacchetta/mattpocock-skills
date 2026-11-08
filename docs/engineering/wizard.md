@@ -6,6 +6,8 @@ The [agent](https://www.aihero.dev/ai-coding-dictionary/agent) writes the script
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:wizard`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$wizard`; the `/wizard` examples below use Claude Code syntax.
 
 You can type `/wizard`, and the agent can also reach for it on its own. When it hits a step you have to take (a key it can't mint, a dashboard it can't click), it builds you a wizard instead of writing the instructions into the chat, where they scroll away.

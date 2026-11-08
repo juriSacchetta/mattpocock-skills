@@ -24,7 +24,7 @@ Start every subagent with a fresh context window:
 
 If an agreed input exists only in this conversation, save it once in the shared run directory before dispatch. Use absolute paths for shared files and assigned worktrees.
 
-Give each worker only its role, spec and ticket pointers, tracker configuration pointer, integration branch, assigned worktree, relevant shared notes, and required skill locations. Resolve skill locations from the installed skill catalog. In Claude Code, load a named skill through the Skill tool. In Codex, read that skill's `SKILL.md` at its installed location and follow it, reading supporting files only when needed. Pass this loading instruction to workers as part of their brief.
+Give each worker only its role, spec and ticket pointers, tracker configuration pointer, integration branch, assigned worktree, relevant shared notes, and required skill locations. Resolve skill locations and any plugin-qualified names from the installed skill catalog. In Claude Code, load a named skill through the Skill tool. In Codex, read that skill's `SKILL.md` at its installed location and follow it, reading supporting files only when needed. Pass this loading instruction to workers as part of their brief.
 
 Workers write detailed findings and validation evidence to a shared run directory outside the repo. Each return is at most 200 words: ticket, terminal status (`complete`, `blocked`, or `failed`), branch and commit, validation result, blockers, and evidence path. A queued worker or accepted task is still running. Check its terminal result before advancing the ledger.
 

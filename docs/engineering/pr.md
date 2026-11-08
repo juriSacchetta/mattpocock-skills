@@ -6,6 +6,8 @@ The summary is a visual, not a paragraph. A default PR body describes the diff i
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:pr`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$pr`; the `/pr` examples below use Claude Code syntax.
 
 Type `/pr`, or the agent reaches for it automatically whenever it is writing a PR body.

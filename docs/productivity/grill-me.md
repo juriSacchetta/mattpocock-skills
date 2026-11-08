@@ -6,6 +6,8 @@ It is **[stateless](https://www.aihero.dev/ai-coding-dictionary/stateless)**. It
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:grill-me`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$grill-me`; the `/grill-me` examples below use Claude Code syntax.
 
 You invoke this by typing `/grill-me`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own. Start it in a **fresh conversation**, not on top of a plan you already had an agent write.

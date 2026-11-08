@@ -6,6 +6,8 @@ It recommends and stops. It does not grill, write a [spec](https://www.aihero.de
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:ask-matt`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$ask-matt`; the `/ask-matt` examples below use Claude Code syntax.
 
 You invoke this by typing `/ask-matt`; the agent won't reach for it on its own.

@@ -8,6 +8,8 @@ Two filters stop the report from becoming generic cleanup advice. First, every c
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:improve-codebase-architecture`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$improve-codebase-architecture`; the `/improve-codebase-architecture` examples below use Claude Code syntax.
 
 You invoke this by typing `/improve-codebase-architecture`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) will not reach for it on its own.

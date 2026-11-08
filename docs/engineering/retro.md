@@ -6,6 +6,8 @@ It changes the environment, not the code. Take the bug the agent shipped, the fi
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:retro`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$retro`; the `/retro` examples below use Claude Code syntax.
 
 You invoke this by typing `/retro`, and the agent won't reach for it on its own.

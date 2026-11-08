@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 You don't remember every skill, so ask.
 
-The `/skill-name` labels in this map use Claude Code syntax. In Codex, tell the human to use `$skill-name` or the skill picker. Built-in context commands are separate: use the harness's fresh-chat action (`/clear` in Claude Code, `/new` in Codex CLI) or compaction action when the tree calls for it.
+The `/skill-name` labels in this map use Claude Code syntax. In Codex, tell the human to use `$skill-name` or the skill picker, using the plugin-qualified name when shown there. Built-in context commands are separate: use the harness's fresh-chat action (`/clear` in Claude Code, `/new` in Codex CLI) or compaction action when the tree calls for it.
 
 A user-invoked skill may be absent from the model's automatic discovery list while still installed. Check the installed picker, skill locations, or the installed plugin's manifest before reporting it missing. Read a skill for orientation without executing its workflow; the human invokes user-only workflows.
 

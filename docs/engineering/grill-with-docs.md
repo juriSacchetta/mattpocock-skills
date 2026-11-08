@@ -6,6 +6,8 @@ It is **[stateful](https://www.aihero.dev/ai-coding-dictionary/stateful)**. Ever
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:grill-with-docs`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$grill-with-docs`; the `/grill-with-docs` examples below use Claude Code syntax.
 
 You invoke this by typing `/grill-with-docs`, and the agent won't reach for it on its own.

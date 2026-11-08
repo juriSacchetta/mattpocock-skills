@@ -6,6 +6,8 @@ Throwaway is a constraint on how the code is *written*, not a promise to destroy
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:prototype`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$prototype`; the `/prototype` examples below use Claude Code syntax.
 
 Type `/prototype`, or the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) reaches for it automatically when a task fits.

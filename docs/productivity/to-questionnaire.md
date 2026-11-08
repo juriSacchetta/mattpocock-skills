@@ -6,6 +6,8 @@ It grills you about the **send**, never the subject. An interview about the topi
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:to-questionnaire`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$to-questionnaire`; the `/to-questionnaire` examples below use Claude Code syntax.
 
 You invoke this by typing `/to-questionnaire`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own.

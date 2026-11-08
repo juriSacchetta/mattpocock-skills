@@ -8,6 +8,8 @@ It was called `writing-great-skills` until v1.1. The new name fits what it alway
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:writing-for-agents`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$writing-for-agents`; the `/writing-for-agents` examples below use Claude Code syntax.
 
 Type `/writing-for-agents`, or the agent reaches for it on its own when you're creating or editing a skill, or modifying `AGENTS.md` or `CLAUDE.md`.

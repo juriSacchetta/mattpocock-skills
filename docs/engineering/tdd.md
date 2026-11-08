@@ -6,6 +6,8 @@ It writes no test at a seam you have not agreed to first. Before any test exists
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:tdd`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$tdd`; the `/tdd` examples below use Claude Code syntax.
 
 Type `/tdd`, or the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) reaches for it automatically when a task fits: building a feature or fixing a bug test-first, or when you say "red-green-refactor".

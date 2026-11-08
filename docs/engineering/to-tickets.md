@@ -6,6 +6,8 @@ Every ticket is a **tracer bullet**: a narrow but complete path through every la
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:to-tickets`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$to-tickets`; the `/to-tickets` examples below use Claude Code syntax.
 
 You invoke this by typing `/to-tickets`. The [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own.

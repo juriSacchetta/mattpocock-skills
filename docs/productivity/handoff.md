@@ -6,6 +6,8 @@ What it gives you is **portability**, not compression, so the skill is narrower 
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:handoff`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$handoff`; the `/handoff` examples below use Claude Code syntax.
 
 You invoke this by typing `/handoff`; the agent won't reach for it on its own. Pass a note about what the next session is for, and the skill writes the document for that purpose.

@@ -6,6 +6,8 @@ It does not teach from what the [model](https://www.aihero.dev/ai-coding-diction
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:teach`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$teach`; the `/teach` examples below use Claude Code syntax.
 
 You invoke this by typing `/teach`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own.

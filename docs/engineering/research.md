@@ -6,6 +6,8 @@ It does not answer you in the conversation. The output is a file, written where 
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:research`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$research`; the `/research` examples below use Claude Code syntax.
 
 Type `/research`, or the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) reaches for it automatically when a task turns into reading legwork.

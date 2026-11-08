@@ -6,6 +6,8 @@ The skill never merges or re-ranks the two axes. The report ends with a worst is
 
 ## When to reach for it
 
+Plugin installs may qualify skill names, for example `mattpocock-skills:code-review`. Use the installed name shown in your skill picker.
+
 In Codex, invoke this skill as `$code-review`; the `/code-review` examples below use Claude Code syntax.
 
 Type `/code-review`, or the agent reaches for it automatically when you ask to review a branch, a PR, work in progress, or anything "since X".
